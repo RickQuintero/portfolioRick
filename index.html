@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricardo Quintero — Unity Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080b14;
+      --bg2:      #0e1220;
+      --bg3:      #141826;
+      --border:   rgba(100,110,180,0.15);
+      --accent:   #6C63FF;
+      --accent2:  #9C8FFF;
+      --green:    #3ECFA0;
+      --text:     #e8eaf0;
+      --muted:    #8892b0;
+      --card-bg:  #111625;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(8,11,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text);
+      cursor: pointer;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .nav-links li a:hover { color: var(--text); }
+    .nav-links li a.active {
+      color: var(--accent2);
+      background: rgba(108,99,255,0.12);
+      border: 1px solid rgba(108,99,255,0.25);
+    }
+
+    /* ─── PAGES ─── */
+    .page { display: none; padding-top: 64px; min-height: 100vh; }
+    .page.active { display: block; animation: fadeIn 0.4s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION WRAPPER ─── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── HOME PAGE ─── */
+    #home {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 80px 40px 60px;
+      position: relative;
+    }
+
+    /* glow orb */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(108,99,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .avatar-ring {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      border: 2.5px solid var(--accent);
+      padding: 3px;
+      background: var(--card-bg);
+      overflow: hidden;
+      box-shadow: 0 0 32px rgba(108,99,255,0.3);
+    }
+    .avatar-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e2340 0%, #2a3060 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+
+    .badge {
+      display: inline-block;
+      margin: 14px 0;
+      padding: 5px 14px;
+      border: 1px solid rgba(108,99,255,0.4);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent2);
+      background: rgba(108,99,255,0.08);
+      letter-spacing: 0.3px;
+    }
+
+    h1.hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 10px;
+    }
+    h1.hero-name span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .hero-desc {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      padding: 13px 28px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(108,99,255,0.35);
+    }
+    .btn-primary:hover {
+      background: #7d75ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(108,99,255,0.5);
+    }
+
+    .btn-outline {
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--accent2);
+      border: 1.5px solid rgba(108,99,255,0.45);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(108,99,255,0.08);
+      color: #fff;
+    }
+
+    /* feature cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0 40px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(108,99,255,0.4);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(108,99,255,0.12);
+      border: 1px solid rgba(108,99,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      color: var(--accent2);
+    }
+    .feature-icon svg { width: 20px; height: 20px; }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent2); }
+    .footer-links { display: flex; gap: 20px; }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      text-align: center;
+      padding: 64px 40px 48px;
+    }
+    .page-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .page-header h2 span { color: var(--accent); }
+    .page-header p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ─── GAMES PAGE ─── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 0 40px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+    }
+    .game-card:hover {
+      border-color: rgba(108,99,255,0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .game-logo-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid rgba(108,99,255,0.3);
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .game-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* placeholder icons for games */
+    .game-placeholder {
+      font-size: 2.5rem;
+    }
+
+    .game-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .game-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .game-role {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .btn-game {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+    }
+    .btn-game:hover {
+      background: #7d75ff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── ABOUT PAGE ─── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      padding: 0 40px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .about-bio p {
+      color: var(--muted);
+      font-size: 0.975rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .about-bio strong { color: var(--text); font-weight: 600; }
+
+    .about-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .sidebar-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .skill-row:last-child { border-bottom: none; }
+
+    .skill-tag {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .tag-advanced { background: rgba(108,99,255,0.18); color: var(--accent2); border: 1px solid rgba(108,99,255,0.25); }
+    .tag-intermediate { background: rgba(62,207,160,0.12); color: var(--green); border: 1px solid rgba(62,207,160,0.25); }
+
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tool-chip {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tool-chip:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ─── CONTACT PAGE ─── */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.25s, transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .contact-card:hover {
+      border-color: rgba(108,99,255,0.45);
+      background: rgba(108,99,255,0.04);
+      transform: translateX(4px);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      background: rgba(108,99,255,0.12);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent2);
+    }
+    .contact-icon svg { width: 20px; height: 20px; }
+
+    .contact-info { flex: 1; }
+    .contact-info h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
+    .contact-info a, .contact-info .link-text {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    .contact-info p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+    .contact-arrow { color: var(--muted); transition: color 0.2s; }
+    .contact-card:hover .contact-arrow { color: var(--accent2); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .feature-grid { grid-template-columns: 1fr; padding: 0 20px 60px; }
+      .games-grid { grid-template-columns: 1fr; padding: 0 20px 60px; }
+      .about-layout { grid-template-columns: 1fr; padding: 0 20px 60px; }
+      .contact-list { padding: 0 20px 60px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .hero { padding: 60px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="logo" onclick="navigate('home')">RQ<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="navigate('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="navigate('games')" id="nav-games">Games</a></li>
+    <li><a href="#" onclick="navigate('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="navigate('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════ HOME ══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-placeholder">RQ</div>
+      </div>
+    </div>
+    <span class="badge">Unity Developer</span>
+    <h1 class="hero-name">Ricardo <span>Quintero</span></h1>
+    <p class="hero-sub"><strong>Unity Developer</strong> | <strong>C# Programmer</strong></p>
+    <p class="hero-desc">Unity developer focused on gameplay systems, mechanics programming, and interactive experiences. Strong background in C# scripting and experience creating 3D assets using Blender.</p>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="navigate('games')">View My Games</button>
+      <button class="btn-outline" onclick="navigate('contact')">Contact Me</button>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h3>C# Programming</h3>
+      <p>Gameplay systems, mechanics, and interactive logic built with clean, maintainable C# code.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <h3>Unity Engine</h3>
+      <p>Complete game development from concept to deployment using the Unity game engine.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>3D with Blender</h3>
+      <p>3D modeling and asset creation using Blender for game prototyping and production.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://itch.io" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact')">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ GAMES ══════════════════════════════════════════ -->
+<div id="page-games" class="page">
+  <div class="page-header">
+    <h2>My <span>Games</span></h2>
+    <p>Projects built with passion, code, and creativity.</p>
+  </div>
+
+  <div class="games-grid">
+    <!-- Cash & Metal -->
+    <div class="game-card">
+      <div class="game-logo-wrap">
+        <span class="game-placeholder">⚙️</span>
+      </div>
+      <h3>Cash &amp; Metal</h3>
+      <p>A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a metal-clad robot and battle enemy machines in a brutal arena where survival is the only objective.</p>
+      <div class="game-role">Full Game Developer</div>
+      <a class="btn-game" href="https://itch.io" target="_blank">
+        Play / View Project
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <!-- Hunger of the Forest -->
+    <div class="game-card">
+      <div class="game-logo-wrap">
+        <span class="game-placeholder">🌲</span>
+      </div>
+      <h3>Hunger of the Forest</h3>
+      <p>An orthographic top-down stylized survival game. Gather resources, craft tools, and survive the dangers lurking within the forest.</p>
+      <div class="game-role">Full Game Developer</div>
+      <a class="btn-game" href="https://itch.io" target="_blank">
+        Play / View Project
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://itch.io" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact')">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ ABOUT ══════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="page-header">
+    <h2>About <span>Me</span></h2>
+  </div>
+
+  <div class="about-layout">
+    <div class="about-bio">
+      <p>I am a <strong>Unity Developer</strong> specializing in <strong>C# gameplay programming</strong>. My focus is on building interactive experiences that feel engaging and responsive — from core mechanics and player systems to complete gameplay loops.</p>
+      <p>I have experience developing complete game systems, including player controllers, resource management, AI behaviors, and UI integration. I enjoy the process of turning ideas into playable experiences and solving the technical challenges that come with game development.</p>
+      <p>Beyond programming, I work with <strong>Blender</strong> for 3D asset creation and prototyping. This allows me to handle both the technical and visual sides of a project — from modeling game-ready assets to building environments that support the gameplay experience.</p>
+      <p>I am passionate about interactive media and always looking to improve my craft, whether it is through learning new tools, optimizing existing systems, or exploring fresh ideas in game design.</p>
+    </div>
+
+    <div class="about-sidebar">
+      <!-- Skills & Tools -->
+      <div class="sidebar-card">
+        <h4>Skills &amp; Tools</h4>
+        <div class="skill-row"><span>Unity Engine</span><span class="skill-tag tag-advanced">Advanced</span></div>
+        <div class="skill-row"><span>C# Programming</span><span class="skill-tag tag-advanced">Advanced</span></div>
+        <div class="skill-row"><span>Blender</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
+        <div class="skill-row"><span>Gameplay Systems</span><span class="skill-tag tag-advanced">Advanced</span></div>
+        <div class="skill-row"><span>Game Design</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
+        <div class="skill-row"><span>Version Control (Git)</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
+      </div>
+
+      <!-- What I Work With -->
+      <div class="sidebar-card">
+        <h4>What I Work With</h4>
+        <div class="tools-row">
+          <span class="tool-chip">Unity</span>
+          <span class="tool-chip">C#</span>
+          <span class="tool-chip">Blender</span>
+          <span class="tool-chip">.NET</span>
+          <span class="tool-chip">Visual Studio</span>
+          <span class="tool-chip">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://itch.io" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact')">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ CONTACT ══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="page-header">
+    <h2>Get in <span>Touch</span></h2>
+    <p>Interested in working together or have a question? Feel free to reach out.</p>
+  </div>
+
+  <div class="contact-list">
+    <a class="contact-card" href="mailto:rickquintero96@gmail.com">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="contact-info">
+        <h3>Email</h3>
+        <div class="link-text">rickquintero96@gmail.com</div>
+        <p>For professional inquiries and collaborations.</p>
+      </div>
+      <div class="contact-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://linkedin.com/in/rickquintero" target="_blank">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div class="contact-info">
+        <h3>LinkedIn</h3>
+        <div class="link-text">linkedin.com/in/rickquintero</div>
+        <p>Connect with me on LinkedIn.</p>
+      </div>
+      <div class="contact-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://artstation.com/rickq964" target="_blank">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 17l3-6 2 4 2-3 3 5"/></svg>
+      </div>
+      <div class="contact-info">
+        <h3>ArtStation</h3>
+        <div class="link-text">artstation.com/rickq964</div>
+        <p>Portfolio and art updates.</p>
+      </div>
+      <div class="contact-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://ko-fi.com/rickquintero" target="_blank">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <div class="contact-info">
+        <h3>Ko-fi</h3>
+        <div class="link-text">ko-fi.com/rickquintero</div>
+        <p>Support my work and game development projects.</p>
+      </div>
+      <div class="contact-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://itch.io" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact'); return false;">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ─── ROUTER ─── -->
+<script>
+  const pages = ['home','games','about','contact'];
+
+  function navigate(page) {
+    pages.forEach(p => {
+      document.getElementById('page-' + p).classList.remove('active');
+      document.getElementById('nav-' + p).classList.remove('active');
+    });
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+    history.pushState({page}, '', '#' + page);
+    return false;
+  }
+
+  // Handle nav link clicks without page reload
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+
+  // Hash routing on load
+  window.addEventListener('load', () => {
+    const hash = location.hash.replace('#','');
+    if (pages.includes(hash)) navigate(hash);
+  });
+
+  window.addEventListener('popstate', e => {
+    if (e.state && pages.includes(e.state.page)) {
+      navigate(e.state.page);
+    }
+  });
+</script>
+
+</body>
+</html>
