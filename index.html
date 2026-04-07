@@ -6,6 +6,7 @@
   <title>Ricardo Quintero — Unity Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/game.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -632,6 +633,7 @@
     <li><a href="#" onclick="navigate('games')" id="nav-games" data-i18n="nav.games">Projects</a></li>
     <li><a href="#" onclick="navigate('about')" id="nav-about" data-i18n="nav.about">About</a></li>
     <li><a href="#" onclick="navigate('contact')" id="nav-contact" data-i18n="nav.contact">Contact</a></li>
+    <li><a href="#" onclick="navigate('game')" id="nav-game" data-i18n="nav.game">Play with me</a></li>
   </ul>
   <div class="lang-switcher">
     <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
@@ -962,6 +964,20 @@
   </footer>
 </div>
 
+<!-- ══════════════════════════════════════════ GAME ══════════════════════════════════════════ -->
+<div id="page-game" class="page">
+  <div id="game-container">
+    <div id="game-loading">
+      <div class="dot-row">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <p>Loading game…</p>
+    </div>
+  </div>
+</div>
+
 <!-- ─── SCRIPTS ─── -->
 <script>
   /* ── i18n ── */
@@ -971,6 +987,7 @@
       'nav.games':  'Projects',
       'nav.about':  'About',
       'nav.contact':'Contact',
+      'nav.game':   'Play with me',
       'hero.badge': 'Unity Developer',
       'hero.sub':   '<strong>Unity Developer</strong> | <strong>C# Programmer</strong>',
       'hero.desc':  'Unity developer focused on gameplay systems, mechanics programming, and interactive experiences. Strong background in C# scripting and experience creating 3D assets using Blender.',
@@ -1038,6 +1055,7 @@
       'nav.games':  'Proyectos',
       'nav.about':  'Sobre Mí',
       'nav.contact':'Contacto',
+      'nav.game':   'Juega Conmigo',
       'hero.badge': 'Desarrollador Unity',
       'hero.sub':   '<strong>Desarrollador Unity</strong> | <strong>Programador C#</strong>',
       'hero.desc':  'Desarrollador Unity enfocado en sistemas de gameplay, programación de mecánicas y experiencias interactivas. Sólida base en scripting con C# y experiencia creando activos 3D con Blender.',
@@ -1121,9 +1139,15 @@
   }
 
   /* ── Router ── */
-  const pages = ['home','games','about','contact'];
+  const pages = ['home','games','about','contact','game'];
+  let _currentPage = 'home';
 
   function navigate(page) {
+    // Pause the game when leaving the game tab
+    if (_currentPage === 'game' && page !== 'game') {
+      if (typeof pauseGame === 'function') pauseGame();
+    }
+
     pages.forEach(p => {
       document.getElementById('page-' + p).classList.remove('active');
       document.getElementById('nav-' + p).classList.remove('active');
@@ -1132,6 +1156,20 @@
     document.getElementById('nav-' + page).classList.add('active');
     window.scrollTo(0, 0);
     history.pushState({page}, '', '#' + page);
+    _currentPage = page;
+
+    // Init or resume the Phaser game when entering the game tab
+    if (page === 'game') {
+      // Small delay ensures the container is visible and has dimensions
+      setTimeout(function () {
+        if (window._phaserGame) {
+          if (typeof resumeGame === 'function') resumeGame();
+        } else {
+          if (typeof initGame === 'function') initGame();
+        }
+      }, 80);
+    }
+
     return false;
   }
 
@@ -1149,5 +1187,14 @@
   });
 </script>
 
+<!-- ─── PHASER + GAME SCRIPTS ─── -->
+<!-- Loaded after the router so they don't block the portfolio UI.       -->
+<!-- initGame() is only called on user interaction (clicking the tab),   -->
+<!-- so all game globals are available well before they are needed.       -->
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+<script src="js/bullet.js"></script>
+<script src="js/asteroid.js"></script>
+<script src="js/player.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
