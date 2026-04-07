@@ -10,20 +10,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #080b14;
-      --bg2:      #0e1220;
-      --bg3:      #141826;
-      --border:   rgba(100,110,180,0.15);
-      --accent:   #6C63FF;
-      --accent2:  #9C8FFF;
-      --green:    #3ECFA0;
-      --text:     #e8eaf0;
-      --muted:    #8892b0;
-      --card-bg:  #111625;
+      --bg:      #080b14;
+      --bg2:     #0e1220;
+      --bg3:     #141826;
+      --border:  rgba(100,110,180,0.15);
+      --accent:  #6C63FF;
+      --accent2: #9C8FFF;
+      --green:   #3ECFA0;
+      --amber:   #F59E0B;
+      --text:    #e8eaf0;
+      --muted:   #8892b0;
+      --card-bg: #111625;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -33,7 +33,6 @@
       min-height: 100vh;
     }
 
-    /* ─── NOISE OVERLAY ─── */
     body::before {
       content: '';
       position: fixed;
@@ -54,9 +53,10 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 64px;
-      background: rgba(8,11,20,0.85);
+      background: rgba(8,11,20,0.88);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      gap: 16px;
     }
 
     .logo {
@@ -66,6 +66,7 @@
       color: var(--text);
       cursor: pointer;
       letter-spacing: -0.5px;
+      flex-shrink: 0;
     }
     .logo span { color: var(--accent); }
 
@@ -84,6 +85,7 @@
       text-decoration: none;
       transition: color 0.2s, background 0.2s;
       cursor: pointer;
+      white-space: nowrap;
     }
     .nav-links li a:hover { color: var(--text); }
     .nav-links li a.active {
@@ -92,28 +94,43 @@
       border: 1px solid rgba(108,99,255,0.25);
     }
 
+    /* ─── LANGUAGE SWITCHER ─── */
+    .lang-switcher {
+      display: flex;
+      gap: 2px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      padding: 4px 11px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+    .lang-btn:hover:not(.active) { color: var(--text); }
+
     /* ─── PAGES ─── */
     .page { display: none; padding-top: 64px; min-height: 100vh; }
     .page.active { display: block; animation: fadeIn 0.4s ease; }
+    #page-home.active { display: flex; flex-direction: column; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ─── SECTION WRAPPER ─── */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ─── HOME PAGE ─── */
-    #home {
-      display: flex;
-      flex-direction: column;
-    }
-
+    /* ─── HERO ─── */
     .hero {
       display: flex;
       flex-direction: column;
@@ -122,58 +139,36 @@
       padding: 80px 40px 60px;
       position: relative;
     }
-
-    /* glow orb */
     .hero::before {
       content: '';
       position: absolute;
-      top: 40px;
-      left: 50%;
+      top: 40px; left: 50%;
       transform: translateX(-50%);
-      width: 500px;
-      height: 500px;
+      width: 500px; height: 500px;
       background: radial-gradient(ellipse, rgba(108,99,255,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
 
-    .avatar-wrap {
-      position: relative;
-      margin-bottom: 20px;
-    }
     .avatar-ring {
-      width: 108px;
-      height: 108px;
+      width: 108px; height: 108px;
       border-radius: 50%;
       border: 2.5px solid var(--accent);
       padding: 3px;
       background: var(--card-bg);
       overflow: hidden;
       box-shadow: 0 0 32px rgba(108,99,255,0.3);
+      margin-bottom: 20px;
     }
     .avatar-ring img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       border-radius: 50%;
       display: block;
     }
-    .avatar-placeholder {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1e2340 0%, #2a3060 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent2);
-    }
 
     .badge {
       display: inline-block;
-      margin: 14px 0;
+      margin: 0 0 14px;
       padding: 5px 14px;
       border: 1px solid rgba(108,99,255,0.4);
       border-radius: 20px;
@@ -195,15 +190,12 @@
     h1.hero-name span { color: var(--accent); }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--muted);
       font-weight: 400;
       margin-bottom: 16px;
     }
-    .hero-sub strong {
-      color: var(--text);
-      font-weight: 500;
-    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
 
     .hero-desc {
       max-width: 520px;
@@ -233,11 +225,7 @@
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 4px 24px rgba(108,99,255,0.35);
     }
-    .btn-primary:hover {
-      background: #7d75ff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(108,99,255,0.5);
-    }
+    .btn-primary:hover { background: #7d75ff; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.5); }
 
     .btn-outline {
       padding: 12px 28px;
@@ -251,60 +239,61 @@
       cursor: pointer;
       transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
-    .btn-outline:hover {
-      border-color: var(--accent);
-      background: rgba(108,99,255,0.08);
-      color: #fff;
-    }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(108,99,255,0.08); color: #fff; }
 
-    /* feature cards */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding: 0 40px 80px;
+    /* ─── STRENGTHS ─── */
+    .strengths-section {
+      padding: 8px 40px 80px;
       max-width: 1100px;
       margin: 0 auto;
+      width: 100%;
     }
 
-    .feature-card {
+    .section-label {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .strength-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px 28px;
-      text-align: center;
+      padding: 26px 20px;
       transition: border-color 0.25s, transform 0.2s;
     }
-    .feature-card:hover {
-      border-color: rgba(108,99,255,0.4);
-      transform: translateY(-4px);
-    }
+    .strength-card:hover { border-color: rgba(108,99,255,0.4); transform: translateY(-4px); }
 
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+    .strength-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
       background: rgba(108,99,255,0.12);
       border: 1px solid rgba(108,99,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 18px;
+      margin-bottom: 14px;
       color: var(--accent2);
     }
-    .feature-icon svg { width: 20px; height: 20px; }
+    .strength-icon svg { width: 18px; height: 18px; }
 
-    .feature-card h3 {
+    .strength-card h3 {
       font-family: 'Syne', sans-serif;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 8px;
     }
-    .feature-card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+    .strength-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
     /* ─── FOOTER ─── */
     footer {
@@ -315,6 +304,7 @@
       align-items: center;
       font-size: 0.82rem;
       color: var(--muted);
+      margin-top: auto;
     }
     footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--accent2); }
@@ -332,113 +322,155 @@
       letter-spacing: -1px;
     }
     .page-header h2 span { color: var(--accent); }
-    .page-header p {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
+    .page-header p { margin-top: 10px; color: var(--muted); font-size: 1rem; }
 
-    /* ─── GAMES PAGE ─── */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      padding: 0 40px 80px;
-      max-width: 1000px;
+    /* ─── PROJECTS PAGE ─── */
+    .projects-section {
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 0 40px 80px;
     }
 
-    .game-card {
+    .category-block { margin-bottom: 60px; }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .category-pill.personal {
+      background: rgba(108,99,255,0.12);
+      border: 1px solid rgba(108,99,255,0.3);
+      color: var(--accent2);
+    }
+    .category-pill.jam {
+      background: rgba(62,207,160,0.1);
+      border: 1px solid rgba(62,207,160,0.3);
+      color: var(--green);
+    }
+
+    .category-desc { font-size: 0.85rem; color: var(--muted); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .project-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px 28px 32px;
+      border-radius: 18px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
       transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
     }
-    .game-card:hover {
-      border-color: rgba(108,99,255,0.5);
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    .project-card:hover {
+      border-color: rgba(108,99,255,0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.45);
     }
 
-    .game-logo-wrap {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid rgba(108,99,255,0.3);
-      overflow: hidden;
-      margin-bottom: 24px;
-      background: var(--bg2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .game-logo-wrap img {
+    .project-img-wrap {
+      position: relative;
       width: 100%;
-      height: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg2);
+      overflow: hidden;
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%;
       object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.04); }
+
+    .wip-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(245,158,11,0.18);
+      border: 1px solid rgba(245,158,11,0.5);
+      color: var(--amber);
     }
 
-    /* placeholder icons for games */
-    .game-placeholder {
-      font-size: 2.5rem;
+    .project-body {
+      padding: 20px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 9px;
     }
 
-    .game-card h3 {
+    .project-card h3 {
       font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      line-height: 1.3;
     }
 
-    .game-card p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-
-    .game-role {
-      font-size: 0.75rem;
+    .project-role {
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.4px;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 20px;
     }
 
-    .btn-game {
-      width: 100%;
-      padding: 13px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
+    .project-card p {
+      font-size: 0.845rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .btn-project {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+      padding: 11px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.855rem;
+      font-weight: 600;
+      cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 4px;
     }
-    .btn-game:hover {
-      background: #7d75ff;
-      transform: translateY(-1px);
-    }
+    .btn-project:hover { background: #7d75ff; transform: translateY(-1px); }
 
     /* ─── ABOUT PAGE ─── */
     .about-layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 300px;
       gap: 40px;
       padding: 0 40px 80px;
       max-width: 1100px;
@@ -464,10 +496,26 @@
     }
     .sidebar-card h4 {
       font-family: 'Syne', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       margin-bottom: 20px;
     }
+
+    .profile-sidebar-img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 14px;
+    }
+    .profile-sidebar-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .profile-sidebar-role { font-size: 0.8rem; color: var(--accent2); font-weight: 500; }
 
     .skill-row {
       display: flex;
@@ -475,7 +523,7 @@
       justify-content: space-between;
       padding: 10px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
     .skill-row:last-child { border-bottom: none; }
 
@@ -486,14 +534,10 @@
       font-weight: 600;
       letter-spacing: 0.3px;
     }
-    .tag-advanced { background: rgba(108,99,255,0.18); color: var(--accent2); border: 1px solid rgba(108,99,255,0.25); }
+    .tag-advanced   { background: rgba(108,99,255,0.18); color: var(--accent2); border: 1px solid rgba(108,99,255,0.25); }
     .tag-intermediate { background: rgba(62,207,160,0.12); color: var(--green); border: 1px solid rgba(62,207,160,0.25); }
 
-    .tools-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .tools-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .tool-chip {
       padding: 5px 12px;
       border-radius: 8px;
@@ -527,7 +571,6 @@
       text-decoration: none;
       color: var(--text);
       transition: border-color 0.25s, transform 0.2s, background 0.2s;
-      cursor: pointer;
     }
     .contact-card:hover {
       border-color: rgba(108,99,255,0.45);
@@ -536,9 +579,7 @@
     }
 
     .contact-icon {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
+      width: 48px; height: 48px; min-width: 48px;
       background: rgba(108,99,255,0.12);
       border: 1px solid rgba(108,99,255,0.2);
       border-radius: 12px;
@@ -551,25 +592,33 @@
 
     .contact-info { flex: 1; }
     .contact-info h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
-    .contact-info a, .contact-info .link-text {
-      font-size: 0.85rem;
-      color: var(--accent2);
-      text-decoration: none;
-    }
+    .contact-info .link-text { font-size: 0.85rem; color: var(--accent2); }
     .contact-info p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
 
     .contact-arrow { color: var(--muted); transition: color 0.2s; }
     .contact-card:hover .contact-arrow { color: var(--accent2); }
 
-    /* ─── MOBILE ─── */
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .strengths-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid  { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .feature-grid { grid-template-columns: 1fr; padding: 0 20px 60px; }
-      .games-grid { grid-template-columns: 1fr; padding: 0 20px 60px; }
+      nav { padding: 0 20px; gap: 8px; }
+      .nav-links li a { padding: 6px 10px; font-size: 0.82rem; }
+      .hero { padding: 60px 20px 40px; }
+      .strengths-section { padding: 8px 20px 60px; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .projects-section { padding: 0 20px 60px; }
+      .projects-grid { grid-template-columns: 1fr; }
       .about-layout { grid-template-columns: 1fr; padding: 0 20px 60px; }
       .contact-list { padding: 0 20px 60px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
-      .hero { padding: 60px 20px 40px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 22px 20px; }
+      .page-header { padding: 48px 20px 36px; }
+      .category-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
     }
   </style>
 </head>
@@ -579,106 +628,210 @@
 <nav>
   <div class="logo" onclick="navigate('home')">RQ<span>.</span></div>
   <ul class="nav-links">
-    <li><a href="#" onclick="navigate('home')" id="nav-home" class="active">Home</a></li>
-    <li><a href="#" onclick="navigate('games')" id="nav-games">Games</a></li>
-    <li><a href="#" onclick="navigate('about')" id="nav-about">About</a></li>
-    <li><a href="#" onclick="navigate('contact')" id="nav-contact">Contact</a></li>
+    <li><a href="#" onclick="navigate('home')" id="nav-home" class="active" data-i18n="nav.home">Home</a></li>
+    <li><a href="#" onclick="navigate('games')" id="nav-games" data-i18n="nav.games">Projects</a></li>
+    <li><a href="#" onclick="navigate('about')" id="nav-about" data-i18n="nav.about">About</a></li>
+    <li><a href="#" onclick="navigate('contact')" id="nav-contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" id="btn-es" onclick="setLanguage('es')">ES</button>
+  </div>
 </nav>
 
 <!-- ══════════════════════════════════════════ HOME ══════════════════════════════════════════ -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="avatar-wrap">
-      <div class="avatar-ring">
-        <div class="avatar-placeholder">RQ</div>
-      </div>
+    <div class="avatar-ring">
+      <img src="Images/profilePhoto.png" alt="Ricardo Quintero" />
     </div>
-    <span class="badge">Unity Developer</span>
+    <span class="badge" data-i18n="hero.badge">Unity Developer</span>
     <h1 class="hero-name">Ricardo <span>Quintero</span></h1>
-    <p class="hero-sub"><strong>Unity Developer</strong> | <strong>C# Programmer</strong></p>
-    <p class="hero-desc">Unity developer focused on gameplay systems, mechanics programming, and interactive experiences. Strong background in C# scripting and experience creating 3D assets using Blender.</p>
+    <p class="hero-sub" data-i18n-html="hero.sub"><strong>Unity Developer</strong> | <strong>C# Programmer</strong></p>
+    <p class="hero-desc" data-i18n="hero.desc">Unity developer focused on gameplay systems, mechanics programming, and interactive experiences. Strong background in C# scripting and experience creating 3D assets using Blender.</p>
     <div class="btn-row">
-      <button class="btn-primary" onclick="navigate('games')">View My Games</button>
-      <button class="btn-outline" onclick="navigate('contact')">Contact Me</button>
+      <button class="btn-primary" onclick="navigate('games')" data-i18n="hero.btn.games">View My Projects</button>
+      <button class="btn-outline" onclick="navigate('contact')" data-i18n="hero.btn.contact">Contact Me</button>
     </div>
   </div>
 
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+  <div class="strengths-section">
+    <p class="section-label" data-i18n="strengths.label">Key Strengths</p>
+    <div class="strengths-grid">
+
+      <div class="strength-card">
+        <div class="strength-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 data-i18n="strength.teamwork.title">Teamwork</h3>
+        <p data-i18n="strength.teamwork.desc">Experienced in collaborative development, communication across teams, and leveraging each member's strengths to ship quality games.</p>
       </div>
-      <h3>C# Programming</h3>
-      <p>Gameplay systems, mechanics, and interactive logic built with clean, maintainable C# code.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+
+      <div class="strength-card">
+        <div class="strength-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+        </div>
+        <h3 data-i18n="strength.github.title">GitHub Workflow</h3>
+        <p data-i18n="strength.github.desc">Structured branching, pull requests, and version control discipline — keeping projects organized and history clean across the team.</p>
       </div>
-      <h3>Unity Engine</h3>
-      <p>Complete game development from concept to deployment using the Unity game engine.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+
+      <div class="strength-card">
+        <div class="strength-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 data-i18n="strength.iteration.title">Fast Iteration</h3>
+        <p data-i18n="strength.iteration.desc">Rapid prototyping and quick feedback loops — test ideas, fix issues, and improve features without slowing down the team.</p>
       </div>
-      <h3>3D with Blender</h3>
-      <p>3D modeling and asset creation using Blender for game prototyping and production.</p>
+
+      <div class="strength-card">
+        <div class="strength-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+        </div>
+        <h3 data-i18n="strength.pm.title">Project Management</h3>
+        <p data-i18n="strength.pm.desc">Led multiple game jam teams as Project Manager — organizing tasks, setting milestones, and driving the team toward a shippable product.</p>
+      </div>
+
     </div>
   </div>
 
   <footer>
-    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <span data-i18n="footer.copy">© 2026 Ricardo Quintero. All rights reserved.</span>
     <div class="footer-links">
       <a href="https://rickquintero.itch.io/" target="_blank">Itch.io</a>
-      <a href="#" onclick="navigate('contact')">Contact</a>
+      <a href="#" onclick="navigate('contact'); return false;" data-i18n="nav.contact">Contact</a>
     </div>
   </footer>
 </div>
 
-<!-- ══════════════════════════════════════════ GAMES ══════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════ PROJECTS ══════════════════════════════════════════ -->
 <div id="page-games" class="page">
   <div class="page-header">
-    <h2>My <span>Games</span></h2>
-    <p>Projects built with passion, code, and creativity.</p>
+    <h2 data-i18n-html="games.heading">My <span>Projects</span></h2>
+    <p data-i18n="games.subtitle">Projects built with passion, code, and creativity.</p>
   </div>
 
-  <div class="games-grid">
-    <!-- Cash & Metal -->
-    <div class="game-card">
-      <div class="game-logo-wrap">
-        <span class="game-placeholder">⚙️</span>
+  <div class="projects-section">
+
+    <!-- ── Personal Projects ── -->
+    <div class="category-block">
+      <div class="category-header">
+        <span class="category-pill personal" data-i18n="games.personal.label">🧪 Personal Projects</span>
+        <p class="category-desc" data-i18n="games.personal.desc">Solo development — mechanics, design, and code all made by me.</p>
       </div>
-      <h3>Cash &amp; Metal</h3>
-      <p>A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a metal-clad robot and battle enemy machines in a brutal arena where survival is the only objective.</p>
-      <div class="game-role">Full Game Developer</div>
-      <a class="btn-game" href="https://itch.io" target="_blank">
-        Play / View Project
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/HungerOfTheForest.png" alt="Hunger of the Forest" />
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.hunger.title">Hunger of the Forest</h3>
+            <div class="project-role" data-i18n="game.hunger.role">Solo Developer</div>
+            <p data-i18n="game.hunger.desc">Collect cows by creating paths of wheat, gather money, and carefully manage your resources — all while surviving the dangers of the forest at night.</p>
+            <a class="btn-project" href="https://rickquintero.itch.io/hunger-of-the-forest" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/Crash%26MetalLogo.png" alt="Crash &amp; Metal!" />
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.crash.title">Crash &amp; Metal!</h3>
+            <div class="project-role" data-i18n="game.crash.role">Solo Developer</div>
+            <p data-i18n="game.crash.desc">A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a robot equipped with a heavy shovel weapon and fight enemy machines in a brutal arena.</p>
+            <a class="btn-project" href="https://rickquintero.itch.io/crash-metal" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/ConquestOfBrokenStars.png" alt="Conquest of Broken Stars" />
+            <span class="wip-badge" data-i18n="badge.wip">In Development</span>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.conquest.title">Conquest of Broken Stars</h3>
+            <div class="project-role" data-i18n="game.conquest.role">Solo Developer</div>
+            <p data-i18n="game.conquest.desc">Lead a Type II civilization on the brink of expansion as mysterious wormholes appear across the galaxy. Command fleets, manage resources, and unravel the secrets behind these cosmic anomalies in this space RTS.</p>
+            <a class="btn-project" href="https://rickquintero.itch.io/conquest-of-broken-stars" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- Hunger of the Forest -->
-    <div class="game-card">
-      <div class="game-logo-wrap">
-        <span class="game-placeholder">🌲</span>
+    <!-- ── Game Jam Projects ── -->
+    <div class="category-block">
+      <div class="category-header">
+        <span class="category-pill jam" data-i18n="games.jam.label">🤝 Game Jam Projects</span>
+        <p class="category-desc" data-i18n="games.jam.desc">Collaborative games built under pressure — teamwork, communication, and fast delivery.</p>
       </div>
-      <h3>Hunger of the Forest</h3>
-      <p>An orthographic top-down stylized survival game. Gather resources, craft tools, and survive the dangers lurking within the forest.</p>
-      <div class="game-role">Full Game Developer</div>
-      <a class="btn-game" href="https://itch.io" target="_blank">
-        Play / View Project
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/OeBerriondo.png" alt="Oe Berriondo" />
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.oe.title">Oe Berriondo</h3>
+            <div class="project-role" data-i18n="game.oe.role">Project Manager · Lead Programmer · Technical Artist</div>
+            <p data-i18n="game.oe.desc">A game jam project developed as a team. Led the project from planning to launch, managing the team and building the core gameplay systems.</p>
+            <a class="btn-project" href="https://rickquintero.itch.io/oeberriondo" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/FinalCharge.png" alt="Final Charge" />
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.final.title">Final Charge</h3>
+            <div class="project-role" data-i18n="game.final.role">Project Manager · Lead Programmer · Technical Artist</div>
+            <p data-i18n="game.final.desc">A 2.5D platformer where you play as Robotín, a small robot trying to escape a collapsing factory with limited battery. Every action consumes energy, so movement must be carefully planned.</p>
+            <a class="btn-project" href="https://rickquintero.itch.io/final-charge" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap">
+            <img src="Images/ClickyMouse.png" alt="Clicky Mouse" />
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.clicky.title">Clicky Mouse</h3>
+            <div class="project-role" data-i18n="game.clicky.role">Project Manager · Lead Programmer · Technical Artist</div>
+            <p data-i18n="game.clicky.desc">Control a small mouse — both the animal and the device — and navigate the environment to reach a special button.</p>
+            <a class="btn-project" href="https://lucplash.itch.io/clickymouse" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
 
   <footer>
-    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <span data-i18n="footer.copy">© 2026 Ricardo Quintero. All rights reserved.</span>
     <div class="footer-links">
-      <a href="https://itch.io" target="_blank">Itch.io</a>
-      <a href="#" onclick="navigate('contact')">Contact</a>
+      <a href="https://rickquintero.itch.io/" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact'); return false;" data-i18n="nav.contact">Contact</a>
     </div>
   </footer>
 </div>
@@ -686,32 +839,40 @@
 <!-- ══════════════════════════════════════════ ABOUT ══════════════════════════════════════════ -->
 <div id="page-about" class="page">
   <div class="page-header">
-    <h2>About <span>Me</span></h2>
+    <h2 data-i18n-html="about.heading">About <span>Me</span></h2>
   </div>
 
   <div class="about-layout">
     <div class="about-bio">
-      <p>I am a <strong>Unity Developer</strong> specializing in <strong>C# gameplay programming</strong>. My focus is on building interactive experiences that feel engaging and responsive — from core mechanics and player systems to complete gameplay loops.</p>
-      <p>I have experience developing complete game systems, including player controllers, resource management, AI behaviors, and UI integration. I enjoy the process of turning ideas into playable experiences and solving the technical challenges that come with game development.</p>
-      <p>Beyond programming, I work with <strong>Blender</strong> for 3D asset creation and prototyping. This allows me to handle both the technical and visual sides of a project — from modeling game-ready assets to building environments that support the gameplay experience.</p>
-      <p>I am passionate about interactive media and always looking to improve my craft, whether it is through learning new tools, optimizing existing systems, or exploring fresh ideas in game design.</p>
+      <p data-i18n-html="about.p1">I am a <strong>Unity Developer</strong> specializing in <strong>C# gameplay programming</strong>. My focus is on building interactive experiences that feel engaging and responsive — from core mechanics and player systems to complete gameplay loops.</p>
+      <p data-i18n-html="about.p2">I have experience developing complete game systems, including player controllers, resource management, AI behaviors, and UI integration. I enjoy the process of turning ideas into playable experiences and solving the technical challenges that come with game development.</p>
+      <p data-i18n-html="about.p3">Beyond programming, I work with <strong>Blender</strong> for 3D asset creation and prototyping. This allows me to handle both the technical and visual sides of a project — from modeling game-ready assets to building environments that support the gameplay experience.</p>
+      <p data-i18n-html="about.p4">I am passionate about interactive media and always looking to improve my craft, whether through learning new tools, optimizing existing systems, or exploring fresh ideas in game design.</p>
     </div>
 
     <div class="about-sidebar">
-      <!-- Skills & Tools -->
+
+      <!-- Profile Photo -->
       <div class="sidebar-card">
-        <h4>Skills &amp; Tools</h4>
-        <div class="skill-row"><span>Unity Engine</span><span class="skill-tag tag-advanced">Advanced</span></div>
-        <div class="skill-row"><span>C# Programming</span><span class="skill-tag tag-advanced">Advanced</span></div>
-        <div class="skill-row"><span>Blender</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
-        <div class="skill-row"><span>Gameplay Systems</span><span class="skill-tag tag-advanced">Advanced</span></div>
-        <div class="skill-row"><span>Game Design</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
-        <div class="skill-row"><span>Version Control (Git)</span><span class="skill-tag tag-intermediate">Intermediate</span></div>
+        <img class="profile-sidebar-img" src="Images/profilePhoto.png" alt="Ricardo Quintero" />
+        <div class="profile-sidebar-name">Ricardo Quintero</div>
+        <div class="profile-sidebar-role" data-i18n="hero.badge">Unity Developer</div>
       </div>
 
-      <!-- What I Work With -->
+      <!-- Skills -->
       <div class="sidebar-card">
-        <h4>What I Work With</h4>
+        <h4 data-i18n="about.skills.title">Skills &amp; Tools</h4>
+        <div class="skill-row"><span>Unity Engine</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
+        <div class="skill-row"><span>C# Programming</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
+        <div class="skill-row"><span>Blender</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
+        <div class="skill-row"><span>Gameplay Systems</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
+        <div class="skill-row"><span>Game Design</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
+        <div class="skill-row"><span data-i18n="skill.git">Version Control (Git)</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
+      </div>
+
+      <!-- Tools -->
+      <div class="sidebar-card">
+        <h4 data-i18n="about.tools.title">What I Work With</h4>
         <div class="tools-row">
           <span class="tool-chip">Unity</span>
           <span class="tool-chip">C#</span>
@@ -719,16 +880,18 @@
           <span class="tool-chip">.NET</span>
           <span class="tool-chip">Visual Studio</span>
           <span class="tool-chip">Git</span>
+          <span class="tool-chip">GitHub</span>
         </div>
       </div>
+
     </div>
   </div>
 
   <footer>
-    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <span data-i18n="footer.copy">© 2026 Ricardo Quintero. All rights reserved.</span>
     <div class="footer-links">
-      <a href="https://itch.io" target="_blank">Itch.io</a>
-      <a href="#" onclick="navigate('contact')">Contact</a>
+      <a href="https://rickquintero.itch.io/" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact'); return false;" data-i18n="nav.contact">Contact</a>
     </div>
   </footer>
 </div>
@@ -736,8 +899,8 @@
 <!-- ══════════════════════════════════════════ CONTACT ══════════════════════════════════════════ -->
 <div id="page-contact" class="page">
   <div class="page-header">
-    <h2>Get in <span>Touch</span></h2>
-    <p>Interested in working together or have a question? Feel free to reach out.</p>
+    <h2 data-i18n-html="contact.heading">Get in <span>Touch</span></h2>
+    <p data-i18n="contact.subtitle">Interested in working together or have a question? Feel free to reach out.</p>
   </div>
 
   <div class="contact-list">
@@ -746,13 +909,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </div>
       <div class="contact-info">
-        <h3>Email</h3>
+        <h3 data-i18n="contact.email.title">Email</h3>
         <div class="link-text">rickquintero96@gmail.com</div>
-        <p>For professional inquiries and collaborations.</p>
+        <p data-i18n="contact.email.desc">For professional inquiries and collaborations.</p>
       </div>
-      <div class="contact-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </div>
+      <div class="contact-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </a>
 
     <a class="contact-card" href="https://linkedin.com/in/rickquintero" target="_blank">
@@ -760,13 +921,11 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </div>
       <div class="contact-info">
-        <h3>LinkedIn</h3>
+        <h3 data-i18n="contact.linkedin.title">LinkedIn</h3>
         <div class="link-text">linkedin.com/in/rickquintero</div>
-        <p>Connect with me on LinkedIn.</p>
+        <p data-i18n="contact.linkedin.desc">Connect with me on LinkedIn.</p>
       </div>
-      <div class="contact-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </div>
+      <div class="contact-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </a>
 
     <a class="contact-card" href="https://artstation.com/rickq964" target="_blank">
@@ -774,13 +933,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 17l3-6 2 4 2-3 3 5"/></svg>
       </div>
       <div class="contact-info">
-        <h3>ArtStation</h3>
+        <h3 data-i18n="contact.artstation.title">ArtStation</h3>
         <div class="link-text">artstation.com/rickq964</div>
-        <p>Portfolio and art updates.</p>
+        <p data-i18n="contact.artstation.desc">Portfolio and art updates.</p>
       </div>
-      <div class="contact-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </div>
+      <div class="contact-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </a>
 
     <a class="contact-card" href="https://ko-fi.com/rickquintero" target="_blank">
@@ -788,27 +945,182 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
       </div>
       <div class="contact-info">
-        <h3>Ko-fi</h3>
+        <h3 data-i18n="contact.kofi.title">Ko-fi</h3>
         <div class="link-text">ko-fi.com/rickquintero</div>
-        <p>Support my work and game development projects.</p>
+        <p data-i18n="contact.kofi.desc">Support my work and game development projects.</p>
       </div>
-      <div class="contact-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </div>
+      <div class="contact-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </a>
   </div>
 
   <footer>
-    <span>© 2026 Ricardo Quintero. All rights reserved.</span>
+    <span data-i18n="footer.copy">© 2026 Ricardo Quintero. All rights reserved.</span>
     <div class="footer-links">
-      <a href="https://itch.io" target="_blank">Itch.io</a>
-      <a href="#" onclick="navigate('contact'); return false;">Contact</a>
+      <a href="https://rickquintero.itch.io/" target="_blank">Itch.io</a>
+      <a href="#" onclick="navigate('contact'); return false;" data-i18n="nav.contact">Contact</a>
     </div>
   </footer>
 </div>
 
-<!-- ─── ROUTER ─── -->
+<!-- ─── SCRIPTS ─── -->
 <script>
+  /* ── i18n ── */
+  const i18n = {
+    en: {
+      'nav.home':   'Home',
+      'nav.games':  'Projects',
+      'nav.about':  'About',
+      'nav.contact':'Contact',
+      'hero.badge': 'Unity Developer',
+      'hero.sub':   '<strong>Unity Developer</strong> | <strong>C# Programmer</strong>',
+      'hero.desc':  'Unity developer focused on gameplay systems, mechanics programming, and interactive experiences. Strong background in C# scripting and experience creating 3D assets using Blender.',
+      'hero.btn.games':   'View My Projects',
+      'hero.btn.contact': 'Contact Me',
+      'strengths.label':           'Key Strengths',
+      'strength.teamwork.title':   'Teamwork',
+      'strength.teamwork.desc':    "Experienced in collaborative development, communication across teams, and leveraging each member's strengths to ship quality games.",
+      'strength.github.title':     'GitHub Workflow',
+      'strength.github.desc':      'Structured branching, pull requests, and version control discipline — keeping projects organized and history clean across the team.',
+      'strength.iteration.title':  'Fast Iteration',
+      'strength.iteration.desc':   'Rapid prototyping and quick feedback loops — test ideas, fix issues, and improve features without slowing down the team.',
+      'strength.pm.title':         'Project Management',
+      'strength.pm.desc':          'Led multiple game jam teams as Project Manager — organizing tasks, setting milestones, and driving the team toward a shippable product.',
+      'games.heading':        'My <span>Projects</span>',
+      'games.subtitle':       'Projects built with passion, code, and creativity.',
+      'games.personal.label': '🧪 Personal Projects',
+      'games.personal.desc':  'Solo development — mechanics, design, and code all made by me.',
+      'games.jam.label':      '🤝 Game Jam Projects',
+      'games.jam.desc':       'Collaborative games built under pressure — teamwork, communication, and fast delivery.',
+      'game.hunger.title':  'Hunger of the Forest',
+      'game.hunger.role':   'Solo Developer',
+      'game.hunger.desc':   'Collect cows by creating paths of wheat, gather money, and carefully manage your resources — all while surviving the dangers of the forest at night.',
+      'game.crash.title':   'Crash & Metal!',
+      'game.crash.role':    'Solo Developer',
+      'game.crash.desc':    'A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a robot equipped with a heavy shovel weapon and fight enemy machines in a brutal arena.',
+      'game.conquest.title':'Conquest of Broken Stars',
+      'game.conquest.role': 'Solo Developer',
+      'game.conquest.desc': 'Lead a Type II civilization on the brink of expansion as mysterious wormholes appear across the galaxy. Command fleets, manage resources, and unravel the secrets behind these cosmic anomalies in this space RTS.',
+      'game.oe.title':      'Oe Berriondo',
+      'game.oe.role':       'Project Manager · Lead Programmer · Technical Artist',
+      'game.oe.desc':       'A game jam project developed as a team. Led the project from planning to launch, managing the team and building the core gameplay systems.',
+      'game.final.title':   'Final Charge',
+      'game.final.role':    'Project Manager · Lead Programmer · Technical Artist',
+      'game.final.desc':    'A 2.5D platformer where you play as Robotín, a small robot trying to escape a collapsing factory with limited battery. Every action consumes energy, so movement must be carefully planned.',
+      'game.clicky.title':  'Clicky Mouse',
+      'game.clicky.role':   'Project Manager · Lead Programmer · Technical Artist',
+      'game.clicky.desc':   'Control a small mouse — both the animal and the device — and navigate the environment to reach a special button.',
+      'btn.view':    'View on Itch.io',
+      'badge.wip':   'In Development',
+      'about.heading':     'About <span>Me</span>',
+      'about.p1': 'I am a <strong>Unity Developer</strong> specializing in <strong>C# gameplay programming</strong>. My focus is on building interactive experiences that feel engaging and responsive — from core mechanics and player systems to complete gameplay loops.',
+      'about.p2': 'I have experience developing complete game systems, including player controllers, resource management, AI behaviors, and UI integration. I enjoy the process of turning ideas into playable experiences and solving the technical challenges that come with game development.',
+      'about.p3': 'Beyond programming, I work with <strong>Blender</strong> for 3D asset creation and prototyping. This allows me to handle both the technical and visual sides of a project — from modeling game-ready assets to building environments that support the gameplay experience.',
+      'about.p4': 'I am passionate about interactive media and always looking to improve my craft, whether through learning new tools, optimizing existing systems, or exploring fresh ideas in game design.',
+      'about.skills.title': 'Skills &amp; Tools',
+      'about.tools.title':  'What I Work With',
+      'tag.advanced':     'Advanced',
+      'tag.intermediate': 'Intermediate',
+      'skill.git':        'Version Control (Git)',
+      'contact.heading':         'Get in <span>Touch</span>',
+      'contact.subtitle':        'Interested in working together or have a question? Feel free to reach out.',
+      'contact.email.title':     'Email',
+      'contact.email.desc':      'For professional inquiries and collaborations.',
+      'contact.linkedin.title':  'LinkedIn',
+      'contact.linkedin.desc':   'Connect with me on LinkedIn.',
+      'contact.artstation.title':'ArtStation',
+      'contact.artstation.desc': 'Portfolio and art updates.',
+      'contact.kofi.title':      'Ko-fi',
+      'contact.kofi.desc':       'Support my work and game development projects.',
+      'footer.copy': '© 2026 Ricardo Quintero. All rights reserved.',
+    },
+    es: {
+      'nav.home':   'Inicio',
+      'nav.games':  'Proyectos',
+      'nav.about':  'Sobre Mí',
+      'nav.contact':'Contacto',
+      'hero.badge': 'Desarrollador Unity',
+      'hero.sub':   '<strong>Desarrollador Unity</strong> | <strong>Programador C#</strong>',
+      'hero.desc':  'Desarrollador Unity enfocado en sistemas de gameplay, programación de mecánicas y experiencias interactivas. Sólida base en scripting con C# y experiencia creando activos 3D con Blender.',
+      'hero.btn.games':   'Ver Mis Proyectos',
+      'hero.btn.contact': 'Contáctame',
+      'strengths.label':           'Fortalezas Clave',
+      'strength.teamwork.title':   'Trabajo en Equipo',
+      'strength.teamwork.desc':    'Experiencia en desarrollo colaborativo, comunicación entre equipos y aprovechamiento de las fortalezas de cada miembro para entregar juegos de calidad.',
+      'strength.github.title':     'Flujo con GitHub',
+      'strength.github.desc':      'Ramas estructuradas, pull requests y control de versiones disciplinado — manteniendo proyectos organizados e historial limpio.',
+      'strength.iteration.title':  'Iteración Rápida',
+      'strength.iteration.desc':   'Prototipado rápido y ciclos de retroalimentación ágiles para probar ideas, resolver problemas y mejorar funciones sin frenar al equipo.',
+      'strength.pm.title':         'Gestión de Proyectos',
+      'strength.pm.desc':          'Lideré múltiples equipos en game jams como Project Manager — organizando tareas, definiendo hitos y manteniendo el enfoque en entregar un producto funcional.',
+      'games.heading':        'Mis <span>Proyectos</span>',
+      'games.subtitle':       'Proyectos construidos con pasión, código y creatividad.',
+      'games.personal.label': '🧪 Proyectos Personales',
+      'games.personal.desc':  'Desarrollo en solitario — mecánicas, diseño y código hecho por mí.',
+      'games.jam.label':      '🤝 Proyectos de Game Jam',
+      'games.jam.desc':       'Juegos colaborativos construidos bajo presión — trabajo en equipo, comunicación y entrega rápida.',
+      'game.hunger.title':  'Hunger of the Forest',
+      'game.hunger.role':   'Desarrollador Independiente',
+      'game.hunger.desc':   'Recolecta vacas creando caminos de trigo, acumula dinero y administra cuidadosamente tus recursos mientras sobrevives a los peligros del bosque por la noche.',
+      'game.crash.title':   'Crash & Metal!',
+      'game.crash.role':    'Desarrollador Independiente',
+      'game.crash.desc':    'Un juego de arena de combate frenético inspirado en la intensidad y el caos destructivo de BattleBots. Controla un robot con un arma de pala pesada y lucha contra máquinas enemigas en una brutal arena.',
+      'game.conquest.title':'Conquest of Broken Stars',
+      'game.conquest.role': 'Desarrollador Independiente',
+      'game.conquest.desc': 'Comanda una civilización Tipo II que se aventura a través de agujeros de gusano recién descubiertos en este RTS espacial. Expande tu imperio, administra recursos y descubre los misterios ocultos en estas anomalías cósmicas.',
+      'game.oe.title':      'Oe Berriondo',
+      'game.oe.role':       'Project Manager · Programador Principal · Artista Técnico',
+      'game.oe.desc':       'Proyecto de game jam desarrollado en equipo. Lideré el proyecto desde la planificación hasta el lanzamiento, gestionando el equipo y construyendo los sistemas principales.',
+      'game.final.title':   'Final Charge',
+      'game.final.role':    'Project Manager · Programador Principal · Artista Técnico',
+      'game.final.desc':    'Un plataformero 2.5D donde juegas como Robotín, un pequeño robot que intenta escapar de una fábrica en colapso con batería limitada. Cada acción consume energía, por lo que cada movimiento debe planificarse con cuidado.',
+      'game.clicky.title':  'Clicky Mouse',
+      'game.clicky.role':   'Project Manager · Programador Principal · Artista Técnico',
+      'game.clicky.desc':   'Controla un pequeño ratón — tanto el animal como el dispositivo — y navega por el entorno para llegar a un botón especial.',
+      'btn.view':    'Ver en Itch.io',
+      'badge.wip':   'En Desarrollo',
+      'about.heading':     'Sobre <span>Mí</span>',
+      'about.p1': 'Soy <strong>Desarrollador Unity</strong> especializado en <strong>programación de gameplay en C#</strong>. Me enfoco en crear experiencias interactivas que se sientan dinámicas y responsivas — desde mecánicas base y sistemas de jugador hasta loops de gameplay completos.',
+      'about.p2': 'Tengo experiencia desarrollando sistemas de juego completos, incluyendo controladores de jugador, gestión de recursos, comportamientos de IA e integración de UI. Disfruto convertir ideas en experiencias jugables y resolver los desafíos técnicos que trae el desarrollo de videojuegos.',
+      'about.p3': 'Más allá de la programación, trabajo con <strong>Blender</strong> para la creación y prototipado de activos 3D. Esto me permite manejar tanto el lado técnico como el visual — desde modelado de activos hasta construcción de entornos de juego.',
+      'about.p4': 'Soy apasionado por los medios interactivos y siempre busco mejorar mi oficio, ya sea aprendiendo nuevas herramientas, optimizando sistemas existentes o explorando ideas frescas en diseño de juegos.',
+      'about.skills.title': 'Habilidades y Herramientas',
+      'about.tools.title':  'Con Qué Trabajo',
+      'tag.advanced':     'Avanzado',
+      'tag.intermediate': 'Intermedio',
+      'skill.git':        'Control de Versiones (Git)',
+      'contact.heading':         '<span>Contáctame</span>',
+      'contact.subtitle':        '¿Interesado en colaborar o tienes alguna pregunta? No dudes en contactarme.',
+      'contact.email.title':     'Correo',
+      'contact.email.desc':      'Para consultas profesionales y colaboraciones.',
+      'contact.linkedin.title':  'LinkedIn',
+      'contact.linkedin.desc':   'Conéctate conmigo en LinkedIn.',
+      'contact.artstation.title':'ArtStation',
+      'contact.artstation.desc': 'Portafolio y actualizaciones artísticas.',
+      'contact.kofi.title':      'Ko-fi',
+      'contact.kofi.desc':       'Apoya mi trabajo y proyectos de desarrollo de juegos.',
+      'footer.copy': '© 2026 Ricardo Quintero. Todos los derechos reservados.',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    const strings = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (strings[key] !== undefined) el.textContent = strings[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (strings[key] !== undefined) el.innerHTML = strings[key];
+    });
+  }
+
+  /* ── Router ── */
   const pages = ['home','games','about','contact'];
 
   function navigate(page) {
@@ -823,21 +1135,17 @@
     return false;
   }
 
-  // Handle nav link clicks without page reload
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', e => e.preventDefault());
   });
 
-  // Hash routing on load
   window.addEventListener('load', () => {
     const hash = location.hash.replace('#','');
     if (pages.includes(hash)) navigate(hash);
   });
 
   window.addEventListener('popstate', e => {
-    if (e.state && pages.includes(e.state.page)) {
-      navigate(e.state.page);
-    }
+    if (e.state && pages.includes(e.state.page)) navigate(e.state.page);
   });
 </script>
 
