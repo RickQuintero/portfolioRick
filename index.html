@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ricardo Quintero — Unity Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/game.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 16px;
       line-height: 1.65;
       min-height: 100vh;
@@ -61,7 +61,7 @@
     }
 
     .logo {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 800;
       font-size: 1.35rem;
       color: var(--text);
@@ -111,7 +111,7 @@
       border: none;
       background: transparent;
       color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
@@ -181,7 +181,7 @@
     }
 
     h1.hero-name {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2.4rem, 6vw, 4rem);
       font-weight: 800;
       line-height: 1.1;
@@ -219,7 +219,7 @@
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
@@ -234,7 +234,7 @@
       color: var(--accent2);
       border: 1.5px solid rgba(108,99,255,0.45);
       border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
@@ -289,7 +289,7 @@
     .strength-icon svg { width: 18px; height: 18px; }
 
     .strength-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
       margin-bottom: 8px;
@@ -317,7 +317,7 @@
       padding: 64px 40px 48px;
     }
     .page-header h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 800;
       letter-spacing: -1px;
@@ -349,7 +349,7 @@
       gap: 7px;
       padding: 6px 16px;
       border-radius: 20px;
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 0.82rem;
       font-weight: 700;
       white-space: nowrap;
@@ -369,8 +369,8 @@
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
     }
 
     .project-card {
@@ -418,15 +418,15 @@
     }
 
     .project-body {
-      padding: 20px 20px 18px;
+      padding: 24px 24px 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
-      gap: 9px;
+      gap: 10px;
     }
 
     .project-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1.05rem;
       font-weight: 700;
       line-height: 1.3;
@@ -458,7 +458,7 @@
       color: #fff;
       border: none;
       border-radius: 9px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.855rem;
       font-weight: 600;
       cursor: pointer;
@@ -467,6 +467,60 @@
       margin-top: 4px;
     }
     .btn-project:hover { background: #7d75ff; transform: translateY(-1px); }
+
+    /* ─── TECH TAGS ─── */
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+    .tech-chip {
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tc-base   { background: rgba(255,255,255,0.04); color: var(--muted);   border: 1px solid rgba(255,255,255,0.09); }
+    .tc-pool   { background: rgba(108,99,255,0.14);  color: var(--accent2); border: 1px solid rgba(108,99,255,0.28); }
+    .tc-ai     { background: rgba(62,207,160,0.11);  color: var(--green);   border: 1px solid rgba(62,207,160,0.24); }
+    .tc-light  { background: rgba(245,158,11,0.11);  color: var(--amber);   border: 1px solid rgba(245,158,11,0.28); }
+    .tc-shader { background: rgba(192,90,255,0.12);  color: #c05aff;        border: 1px solid rgba(192,90,255,0.28); }
+    .tc-proc   { background: rgba(50,220,130,0.10);  color: #32dc82;        border: 1px solid rgba(50,220,130,0.24); }
+
+    /* ─── FEATURE HIGHLIGHTS ─── */
+    .feature-highlights { display: flex; flex-direction: column; gap: 5px; }
+    .fh {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 11px;
+      border-radius: 7px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    .fh-light  { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.24);  color: var(--amber); }
+    .fh-cloud  { background: rgba(100,170,255,0.08); border: 1px solid rgba(100,170,255,0.24); color: #64aaff; }
+    .fh-proc   { background: rgba(50,220,130,0.08);  border: 1px solid rgba(50,220,130,0.24);  color: #32dc82; }
+    .fh-ai     { background: rgba(62,207,160,0.08);  border: 1px solid rgba(62,207,160,0.24);  color: var(--green); }
+    .fh-shader { background: rgba(192,90,255,0.08);  border: 1px solid rgba(192,90,255,0.24);  color: #c05aff; }
+
+    /* ─── CV LINKS ─── */
+    .contact-card-cv { flex-direction: column; align-items: flex-start; cursor: default; }
+    .contact-card-cv:hover { transform: none; }
+    .contact-card-cv .contact-card-top { display: flex; align-items: center; gap: 20px; width: 100%; }
+    .cv-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .cv-link {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: rgba(108,99,255,0.1);
+      border: 1px solid rgba(108,99,255,0.28);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .cv-link:hover { background: rgba(108,99,255,0.22); border-color: var(--accent); color: #fff; }
 
     /* ─── ABOUT PAGE ─── */
     .about-layout {
@@ -496,7 +550,7 @@
       padding: 24px;
     }
     .sidebar-card h4 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 20px;
@@ -511,7 +565,7 @@
       margin-bottom: 14px;
     }
     .profile-sidebar-name {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 4px;
@@ -592,7 +646,7 @@
     .contact-icon svg { width: 20px; height: 20px; }
 
     .contact-info { flex: 1; }
-    .contact-info h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
+    .contact-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
     .contact-info .link-text { font-size: 0.85rem; color: var(--accent2); }
     .contact-info p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
 
@@ -602,7 +656,6 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
       .strengths-grid { grid-template-columns: repeat(2, 1fr); }
-      .projects-grid  { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       nav { padding: 0 20px; gap: 8px; }
@@ -729,7 +782,19 @@
           <div class="project-body">
             <h3 data-i18n="game.hunger.title">Hunger of the Forest</h3>
             <div class="project-role" data-i18n="game.hunger.role">Solo Developer</div>
-            <p data-i18n="game.hunger.desc">Collect cows by creating paths of wheat, gather money, and carefully manage your resources — all while surviving the dangers of the forest at night.</p>
+            <p data-i18n="game.hunger.desc">A top-down survival game where you collect cows by creating wheat paths, gather money, and manage resources — all while surviving increasingly dangerous nights in the forest. Features a dynamic daytime cycle and AI-driven enemies that escalate their aggression after dark.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-light">☀ Dynamic Daytime Lighting</div>
+              <div class="fh fh-shader">✦ Custom Shaders</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-pool">Object Pooling</span>
+              <span class="tech-chip tc-ai">AI Nav Agent</span>
+              <span class="tech-chip tc-base">Scriptable Object Store</span>
+              <span class="tech-chip tc-base">Animation Layers</span>
+              <span class="tech-chip tc-base">Full UI</span>
+              <span class="tech-chip tc-base">Internal Minigame</span>
+            </div>
             <a class="btn-project" href="https://rickquintero.itch.io/hunger-of-the-forest" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -742,9 +807,16 @@
             <img src="Images/Crash%26MetalLogo.png" alt="Crash &amp; Metal!" />
           </div>
           <div class="project-body">
-            <h3 data-i18n="game.crash.title">Crash &amp; Metal!</h3>
+            <h3 data-i18n="game.crash.title">Cash &amp; Metal: Arena</h3>
             <div class="project-role" data-i18n="game.crash.role">Solo Developer</div>
-            <p data-i18n="game.crash.desc">A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a robot equipped with a heavy shovel weapon and fight enemy machines in a brutal arena.</p>
+            <p data-i18n="game.crash.desc">An arena combat prototype inspired by BattleBots. Control a robot with physics-based custom movement and a heavy shovel weapon. Includes a full power-up system, centralized audio manager, object pooling for performance, and follower AI opponents.</p>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Custom Physics Movement</span>
+              <span class="tech-chip tc-base">Power-Up System</span>
+              <span class="tech-chip tc-pool">Object Pooling</span>
+              <span class="tech-chip tc-base">Centralized Audio Manager</span>
+              <span class="tech-chip tc-ai">Follower AI</span>
+            </div>
             <a class="btn-project" href="https://rickquintero.itch.io/crash-metal" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -760,7 +832,18 @@
           <div class="project-body">
             <h3 data-i18n="game.conquest.title">Conquest of Broken Stars</h3>
             <div class="project-role" data-i18n="game.conquest.role">Solo Developer</div>
-            <p data-i18n="game.conquest.desc">Lead a Type II civilization on the brink of expansion as mysterious wormholes appear across the galaxy. Command fleets, manage resources, and unravel the secrets behind these cosmic anomalies in this space RTS.</p>
+            <p data-i18n="game.conquest.desc">Lead a Type II civilization through mysterious wormholes in this space RTS. Engineered from scratch: a custom PathAI hierarchy (MotherShip → Fighters → CargoUnits), NavMesh-free SpaceSteeringAgents, EntityPoolManager with double-cap spawning, and a full faction system with state-machine game controller.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-ai">⬡ NavMesh-free SpaceSteeringAgent</div>
+              <div class="fh fh-light">☀ Day &amp; Night Control</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-ai">Custom PathAI</span>
+              <span class="tech-chip tc-pool">EntityPoolManager</span>
+              <span class="tech-chip tc-base">GameController FSM</span>
+              <span class="tech-chip tc-base">Faction System</span>
+              <span class="tech-chip tc-base">RTS Camera</span>
+            </div>
             <a class="btn-project" href="https://rickquintero.itch.io/conquest-of-broken-stars" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -786,7 +869,19 @@
           <div class="project-body">
             <h3 data-i18n="game.oe.title">Oe Berriondo</h3>
             <div class="project-role" data-i18n="game.oe.role">Project Manager · Lead Programmer · Technical Artist</div>
-            <p data-i18n="game.oe.desc">A game jam project developed as a team. Led the project from planning to launch, managing the team and building the core gameplay systems.</p>
+            <p data-i18n="game.oe.desc">A hack and slash game jam where the warrior wields a full combo system and stamina bar. Led design, programming, and 3D art — modeling the main character, intermediate enemy, and final boss. Features dynamic daytime lighting, fake cloud shading for atmospheric depth, and procedural grass generation.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-light">☀ Dynamic Daytime Lighting</div>
+              <div class="fh fh-cloud">☁ Fake Cloud Shading</div>
+              <div class="fh fh-proc">⬡ Procedural Grass</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Combo System</span>
+              <span class="tech-chip tc-base">3D Movement</span>
+              <span class="tech-chip tc-base">Stamina System</span>
+              <span class="tech-chip tc-base">3D Modeling &amp; Animation</span>
+              <span class="tech-chip tc-base">Technical Artist</span>
+            </div>
             <a class="btn-project" href="https://rickquintero.itch.io/oeberriondo" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -801,7 +896,14 @@
           <div class="project-body">
             <h3 data-i18n="game.final.title">Final Charge</h3>
             <div class="project-role" data-i18n="game.final.role">Project Manager · Lead Programmer · Technical Artist</div>
-            <p data-i18n="game.final.desc">A 2.5D platformer where you play as Robotín, a small robot trying to escape a collapsing factory with limited battery. Every action consumes energy, so movement must be carefully planned.</p>
+            <p data-i18n="game.final.desc">Play as Robotín, a small robot escaping a factory before his battery dies. Every jump and movement consumes energy — plan each move carefully. Features moving platforms, a recharging system, and a complete game loop. Built in 40 hours by a 4-person team: PM/Programmer · Storyteller/Sound · Pixel Artist/Animator · UI Designer.</p>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Moving Platforms</span>
+              <span class="tech-chip tc-base">Recharging System</span>
+              <span class="tech-chip tc-base">Full Game Loop</span>
+              <span class="tech-chip tc-base">2.5D Physics</span>
+              <span class="tech-chip tc-base">4-person Team</span>
+            </div>
             <a class="btn-project" href="https://rickquintero.itch.io/final-charge" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -816,7 +918,14 @@
           <div class="project-body">
             <h3 data-i18n="game.clicky.title">Clicky Mouse</h3>
             <div class="project-role" data-i18n="game.clicky.role">Project Manager · Lead Programmer · Technical Artist</div>
-            <p data-i18n="game.clicky.desc">Control a small mouse — both the animal and the device — and navigate the environment to reach a special button.</p>
+            <p data-i18n="game.clicky.desc">Control a small mouse — both the animal and the device — and navigate the environment to reach a special button. Built in just 40 hours by a 4-person team during a game jam, with full character movement, team coordination, and all programming handled solo.</p>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Character Movement</span>
+              <span class="tech-chip tc-base">Full Programming</span>
+              <span class="tech-chip tc-base">Technical Artist</span>
+              <span class="tech-chip tc-base">4-person Team</span>
+              <span class="tech-chip tc-base">40-hour Jam</span>
+            </div>
             <a class="btn-project" href="https://lucplash.itch.io/clickymouse" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -953,6 +1062,22 @@
       </div>
       <div class="contact-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </a>
+
+    <div class="contact-card contact-card-cv">
+      <div class="contact-card-top">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        </div>
+        <div class="contact-info">
+          <h3 data-i18n="contact.cv.title">Curriculum Vitae</h3>
+          <p data-i18n="contact.cv.desc">Download or view my CV in Spanish or English.</p>
+        </div>
+      </div>
+      <div class="cv-links">
+        <a class="cv-link" href="https://docs.google.com/document/d/1hrn4mEYeL9puMg9LuPPCJPbfwm6NzTFd" target="_blank" data-i18n="contact.cv.es">CV in Spanish</a>
+        <a class="cv-link" href="https://docs.google.com/document/d/1-8naLnNF-_9CxgTOLAkmtdgHeSjNU4-q" target="_blank" data-i18n="contact.cv.en">CV in English</a>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -1010,22 +1135,22 @@
       'games.jam.desc':       'Collaborative games built under pressure — teamwork, communication, and fast delivery.',
       'game.hunger.title':  'Hunger of the Forest',
       'game.hunger.role':   'Solo Developer',
-      'game.hunger.desc':   'Collect cows by creating paths of wheat, gather money, and carefully manage your resources — all while surviving the dangers of the forest at night.',
-      'game.crash.title':   'Crash & Metal!',
+      'game.hunger.desc':   'A top-down survival game where you collect cows by creating wheat paths, gather money, and manage resources — all while surviving increasingly dangerous nights in the forest. Features a dynamic daytime cycle and AI-driven enemies that escalate their aggression after dark.',
+      'game.crash.title':   'Cash & Metal: Arena',
       'game.crash.role':    'Solo Developer',
-      'game.crash.desc':    'A fast-paced combat arena game inspired by the intensity and destructive chaos of BattleBots. Take control of a robot equipped with a heavy shovel weapon and fight enemy machines in a brutal arena.',
+      'game.crash.desc':    'An arena combat prototype inspired by BattleBots. Control a robot with physics-based custom movement and a heavy shovel weapon. Includes a full power-up system, centralized audio manager, object pooling for performance, and follower AI opponents.',
       'game.conquest.title':'Conquest of Broken Stars',
       'game.conquest.role': 'Solo Developer',
-      'game.conquest.desc': 'Lead a Type II civilization on the brink of expansion as mysterious wormholes appear across the galaxy. Command fleets, manage resources, and unravel the secrets behind these cosmic anomalies in this space RTS.',
+      'game.conquest.desc': 'Lead a Type II civilization through mysterious wormholes in this space RTS. Engineered from scratch: a custom PathAI hierarchy (MotherShip → Fighters → CargoUnits), NavMesh-free SpaceSteeringAgents, EntityPoolManager with double-cap spawning, and a full faction system with state-machine game controller.',
       'game.oe.title':      'Oe Berriondo',
       'game.oe.role':       'Project Manager · Lead Programmer · Technical Artist',
-      'game.oe.desc':       'A game jam project developed as a team. Led the project from planning to launch, managing the team and building the core gameplay systems.',
+      'game.oe.desc':       'A hack and slash game jam where the warrior wields a full combo system and stamina bar. Led design, programming, and 3D art — modeling the main character, intermediate enemy, and final boss. Features dynamic daytime lighting, fake cloud shading for atmospheric depth, and procedural grass generation.',
       'game.final.title':   'Final Charge',
       'game.final.role':    'Project Manager · Lead Programmer · Technical Artist',
-      'game.final.desc':    'A 2.5D platformer where you play as Robotín, a small robot trying to escape a collapsing factory with limited battery. Every action consumes energy, so movement must be carefully planned.',
+      'game.final.desc':    'Play as Robotín, a small robot escaping a factory before his battery dies. Every jump and movement consumes energy — plan each move carefully. Features moving platforms, a recharging system, and a complete game loop. Built in 40 hours by a 4-person team: PM/Programmer · Storyteller/Sound · Pixel Artist/Animator · UI Designer.',
       'game.clicky.title':  'Clicky Mouse',
       'game.clicky.role':   'Project Manager · Lead Programmer · Technical Artist',
-      'game.clicky.desc':   'Control a small mouse — both the animal and the device — and navigate the environment to reach a special button.',
+      'game.clicky.desc':   'Control a small mouse — both the animal and the device — and navigate the environment to reach a special button. Built in just 40 hours by a 4-person team during a game jam, with full character movement, team coordination, and all programming handled solo.',
       'btn.view':    'View on Itch.io',
       'badge.wip':   'In Development',
       'about.heading':     'About <span>Me</span>',
@@ -1048,6 +1173,10 @@
       'contact.artstation.desc': 'Portfolio and art updates.',
       'contact.kofi.title':      'Ko-fi',
       'contact.kofi.desc':       'Support my work and game development projects.',
+      'contact.cv.title':        'Curriculum Vitae',
+      'contact.cv.desc':         'Download or view my CV in Spanish or English.',
+      'contact.cv.es':           'CV in Spanish',
+      'contact.cv.en':           'CV in English',
       'footer.copy': '© 2026 Ricardo Quintero. All rights reserved.',
     },
     es: {
@@ -1078,22 +1207,22 @@
       'games.jam.desc':       'Juegos colaborativos construidos bajo presión — trabajo en equipo, comunicación y entrega rápida.',
       'game.hunger.title':  'Hunger of the Forest',
       'game.hunger.role':   'Desarrollador Independiente',
-      'game.hunger.desc':   'Recolecta vacas creando caminos de trigo, acumula dinero y administra cuidadosamente tus recursos mientras sobrevives a los peligros del bosque por la noche.',
-      'game.crash.title':   'Crash & Metal!',
+      'game.hunger.desc':   'Un juego de supervivencia top-down donde recolectas vacas creando caminos de trigo, acumulas dinero y gestionas recursos — mientras sobrevives las peligrosas noches del bosque. Incluye un ciclo día/noche dinámico y enemigos con IA que intensifican su agresividad al anochecer.',
+      'game.crash.title':   'Cash & Metal: Arena',
       'game.crash.role':    'Desarrollador Independiente',
-      'game.crash.desc':    'Un juego de arena de combate frenético inspirado en la intensidad y el caos destructivo de BattleBots. Controla un robot con un arma de pala pesada y lucha contra máquinas enemigas en una brutal arena.',
+      'game.crash.desc':    'Un prototipo de combate en arena inspirado en BattleBots. Controla un robot con movimiento físico personalizado y un arma de pala pesada. Incluye sistema de power-ups completo, gestor de audio centralizado, object pooling para rendimiento y oponentes con IA seguidora.',
       'game.conquest.title':'Conquest of Broken Stars',
       'game.conquest.role': 'Desarrollador Independiente',
-      'game.conquest.desc': 'Comanda una civilización Tipo II que se aventura a través de agujeros de gusano recién descubiertos en este RTS espacial. Expande tu imperio, administra recursos y descubre los misterios ocultos en estas anomalías cósmicas.',
+      'game.conquest.desc': 'Lidera una civilización Tipo II a través de agujeros de gusano en este RTS espacial. Construido desde cero: jerarquía PathAI personalizada (NaveNodriza → Combatientes → Cargueros), SpaceSteeringAgents sin NavMesh, EntityPoolManager con doble capacidad de spawn y controlador de juego con máquina de estados.',
       'game.oe.title':      'Oe Berriondo',
       'game.oe.role':       'Project Manager · Programador Principal · Artista Técnico',
-      'game.oe.desc':       'Proyecto de game jam desarrollado en equipo. Lideré el proyecto desde la planificación hasta el lanzamiento, gestionando el equipo y construyendo los sistemas principales.',
+      'game.oe.desc':       'Un hack and slash de game jam donde el guerrero tiene sistema de combos y barra de stamina. Lideré diseño, programación y arte 3D — modelando el personaje principal, enemigo intermedio y jefe final. Con iluminación dinámica día/noche, sombreado de nubes falso para profundidad y generación procedural de césped.',
       'game.final.title':   'Final Charge',
       'game.final.role':    'Project Manager · Programador Principal · Artista Técnico',
-      'game.final.desc':    'Un plataformero 2.5D donde juegas como Robotín, un pequeño robot que intenta escapar de una fábrica en colapso con batería limitada. Cada acción consume energía, por lo que cada movimiento debe planificarse con cuidado.',
+      'game.final.desc':    'Juega como Robotín, un pequeño robot que escapa de una fábrica antes de que se agote su batería. Cada salto y movimiento consume energía — planifica cada acción. Incluye plataformas móviles, sistema de recarga y loop de juego completo. Desarrollado en 40 horas por 4 personas: PM/Programador · Narrador/Sonido · Pixel Artist/Animador · Diseñador UI.',
       'game.clicky.title':  'Clicky Mouse',
       'game.clicky.role':   'Project Manager · Programador Principal · Artista Técnico',
-      'game.clicky.desc':   'Controla un pequeño ratón — tanto el animal como el dispositivo — y navega por el entorno para llegar a un botón especial.',
+      'game.clicky.desc':   'Controla un pequeño ratón — tanto el animal como el dispositivo — y navega por el entorno para llegar a un botón especial. Desarrollado en solo 40 horas por un equipo de 4 personas, con movimiento de personaje completo y toda la programación gestionada de forma individual.',
       'btn.view':    'Ver en Itch.io',
       'badge.wip':   'En Desarrollo',
       'about.heading':     'Sobre <span>Mí</span>',
@@ -1116,6 +1245,10 @@
       'contact.artstation.desc': 'Portafolio y actualizaciones artísticas.',
       'contact.kofi.title':      'Ko-fi',
       'contact.kofi.desc':       'Apoya mi trabajo y proyectos de desarrollo de juegos.',
+      'contact.cv.title':        'Currículum Vitae',
+      'contact.cv.desc':         'Descarga o consulta mi CV en español o inglés.',
+      'contact.cv.es':           'CV en Español',
+      'contact.cv.en':           'CV en Inglés',
       'footer.copy': '© 2026 Ricardo Quintero. Todos los derechos reservados.',
     }
   };
@@ -1143,9 +1276,9 @@
   let _currentPage = 'home';
 
   function navigate(page) {
-    // Pause the game when leaving the game tab
+    // Destroy the game when leaving the game tab — it will restart fresh on return
     if (_currentPage === 'game' && page !== 'game') {
-      if (typeof pauseGame === 'function') pauseGame();
+      if (typeof destroyGame === 'function') destroyGame();
     }
 
     pages.forEach(p => {
@@ -1158,15 +1291,11 @@
     history.pushState({page}, '', '#' + page);
     _currentPage = page;
 
-    // Init or resume the Phaser game when entering the game tab
+    // Always init a fresh game when entering the game tab
     if (page === 'game') {
       // Small delay ensures the container is visible and has dimensions
       setTimeout(function () {
-        if (window._phaserGame) {
-          if (typeof resumeGame === 'function') resumeGame();
-        } else {
-          if (typeof initGame === 'function') initGame();
-        }
+        if (typeof initGame === 'function') initGame();
       }, 80);
     }
 

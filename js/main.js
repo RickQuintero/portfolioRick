@@ -205,7 +205,7 @@ class GameScene extends Phaser.Scene {
       .setDepth(200);
 
     this.add.text(width / 2, height / 2 - 74, 'GAME OVER', {
-      fontFamily: "'Syne', sans-serif",
+      fontFamily: "'Space Grotesk', sans-serif",
       fontSize: '52px',
       fill: '#6C63FF',
       stroke: '#080b14',
@@ -213,19 +213,19 @@ class GameScene extends Phaser.Scene {
     }).setOrigin(0.5).setDepth(201);
 
     this.add.text(width / 2, height / 2 - 10, `Score: ${this.score}`, {
-      fontFamily: "'Syne', sans-serif",
+      fontFamily: "'Space Grotesk', sans-serif",
       fontSize: '28px',
       fill: '#e8eaf0',
     }).setOrigin(0.5).setDepth(201);
 
     this.add.text(width / 2, height / 2 + 36, `Best: ${this.highScore}`, {
-      fontFamily: "'Syne', sans-serif",
+      fontFamily: "'Space Grotesk', sans-serif",
       fontSize: '18px',
       fill: '#9C8FFF',
     }).setOrigin(0.5).setDepth(201);
 
     const btn = this.add.text(width / 2, height / 2 + 100, '[ PLAY AGAIN ]', {
-      fontFamily: "'Syne', sans-serif",
+      fontFamily: "'Space Grotesk', sans-serif",
       fontSize: '22px',
       fill: '#6C63FF',
     }).setOrigin(0.5).setDepth(201).setInteractive({ useHandCursor: true });
@@ -242,7 +242,7 @@ class GameScene extends Phaser.Scene {
 
   _createUI(width, height) {
     const base = {
-      fontFamily: "'Syne', sans-serif",
+      fontFamily: "'Space Grotesk', sans-serif",
       stroke: '#080b14',
       strokeThickness: 3,
     };
@@ -407,6 +407,16 @@ const GAME_CONFIG = {
 function initGame() {
   if (_phaserGame) return;
   _phaserGame = new Phaser.Game(GAME_CONFIG);
+}
+
+function destroyGame() {
+  if (_phaserGame) {
+    _phaserGame.destroy(true);
+    _phaserGame = null;
+  }
+  // Show the loading overlay so it's ready for the next visit
+  const el = document.getElementById('game-loading');
+  if (el) { el.style.display = 'flex'; el.classList.remove('hidden'); }
 }
 
 function pauseGame() {
