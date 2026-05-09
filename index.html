@@ -674,6 +674,96 @@
     @media (max-width: 480px) {
       .nav-links { display: none; }
     }
+
+    /* ─── IMAGE GALLERY ─── */
+    .gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px; height: 36px;
+      background: rgba(8,11,20,0.7);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s;
+      z-index: 2;
+      backdrop-filter: blur(4px);
+    }
+    .project-img-wrap:hover .gallery-btn,
+    .project-img-wrap:focus-within .gallery-btn { opacity: 1; }
+    .gallery-btn:hover { background: rgba(108,99,255,0.85); border-color: transparent; }
+    .gallery-prev { left: 10px; }
+    .gallery-next { right: 10px; }
+    .gallery-counter {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      background: rgba(8,11,20,0.65);
+      padding: 2px 8px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      font-family: 'JetBrains Mono', monospace;
+      z-index: 2;
+      letter-spacing: 0.3px;
+    }
+    .wip-badge { z-index: 3; }
+
+    /* ─── FEATURED PROJECT CARD ─── */
+    .project-card-featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .project-card-featured .project-img-wrap {
+      width: 42%;
+      aspect-ratio: unset;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .project-card-featured { flex-direction: column; }
+      .project-card-featured .project-img-wrap { width: 100%; aspect-ratio: 16 / 9; }
+    }
+
+    /* ─── TRAILER EMBED ─── */
+    .project-trailer {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      margin-top: 2px;
+    }
+    .trailer-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .trailer-label svg { width: 13px; height: 13px; color: #ff3d3d; flex-shrink: 0; }
+    .trailer-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .trailer-embed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -767,93 +857,6 @@
 
   <div class="projects-section">
 
-    <!-- ── Personal Projects ── -->
-    <div class="category-block">
-      <div class="category-header">
-        <span class="category-pill personal" data-i18n="games.personal.label">🧪 Personal Projects</span>
-        <p class="category-desc" data-i18n="games.personal.desc">Solo development — mechanics, design, and code all made by me.</p>
-      </div>
-      <div class="projects-grid">
-
-        <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/HungerOfTheForest.png" alt="Hunger of the Forest" />
-          </div>
-          <div class="project-body">
-            <h3 data-i18n="game.hunger.title">Hunger of the Forest</h3>
-            <div class="project-role" data-i18n="game.hunger.role">Solo Developer</div>
-            <p data-i18n="game.hunger.desc">A top-down survival game where you collect cows by creating wheat paths, gather money, and manage resources — all while surviving increasingly dangerous nights in the forest. Features a dynamic daytime cycle and AI-driven enemies that escalate their aggression after dark.</p>
-            <div class="feature-highlights">
-              <div class="fh fh-light">☀ Dynamic Daytime Lighting</div>
-              <div class="fh fh-shader">✦ Custom Shaders</div>
-            </div>
-            <div class="tech-tags">
-              <span class="tech-chip tc-pool">Object Pooling</span>
-              <span class="tech-chip tc-ai">AI Nav Agent</span>
-              <span class="tech-chip tc-base">Scriptable Object Store</span>
-              <span class="tech-chip tc-base">Animation Layers</span>
-              <span class="tech-chip tc-base">Full UI</span>
-              <span class="tech-chip tc-base">Internal Minigame</span>
-            </div>
-            <a class="btn-project" href="https://rickquintero.itch.io/hunger-of-the-forest" target="_blank">
-              <span data-i18n="btn.view">View on Itch.io</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/Crash%26MetalLogo.png" alt="Crash &amp; Metal!" />
-          </div>
-          <div class="project-body">
-            <h3 data-i18n="game.crash.title">Cash &amp; Metal: Arena</h3>
-            <div class="project-role" data-i18n="game.crash.role">Solo Developer</div>
-            <p data-i18n="game.crash.desc">An arena combat prototype inspired by BattleBots. Control a robot with physics-based custom movement and a heavy shovel weapon. Includes a full power-up system, centralized audio manager, object pooling for performance, and follower AI opponents.</p>
-            <div class="tech-tags">
-              <span class="tech-chip tc-base">Custom Physics Movement</span>
-              <span class="tech-chip tc-base">Power-Up System</span>
-              <span class="tech-chip tc-pool">Object Pooling</span>
-              <span class="tech-chip tc-base">Centralized Audio Manager</span>
-              <span class="tech-chip tc-ai">Follower AI</span>
-            </div>
-            <a class="btn-project" href="https://rickquintero.itch.io/crash-metal" target="_blank">
-              <span data-i18n="btn.view">View on Itch.io</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/ConquestOfBrokenStars.png" alt="Conquest of Broken Stars" />
-            <span class="wip-badge" data-i18n="badge.wip">In Development</span>
-          </div>
-          <div class="project-body">
-            <h3 data-i18n="game.conquest.title">Conquest of Broken Stars</h3>
-            <div class="project-role" data-i18n="game.conquest.role">Solo Developer</div>
-            <p data-i18n="game.conquest.desc">Lead a Type II civilization through mysterious wormholes in this space RTS. Engineered from scratch: a custom PathAI hierarchy (MotherShip → Fighters → CargoUnits), NavMesh-free SpaceSteeringAgents, EntityPoolManager with double-cap spawning, and a full faction system with state-machine game controller.</p>
-            <div class="feature-highlights">
-              <div class="fh fh-ai">⬡ NavMesh-free SpaceSteeringAgent</div>
-              <div class="fh fh-light">☀ Day &amp; Night Control</div>
-            </div>
-            <div class="tech-tags">
-              <span class="tech-chip tc-ai">Custom PathAI</span>
-              <span class="tech-chip tc-pool">EntityPoolManager</span>
-              <span class="tech-chip tc-base">GameController FSM</span>
-              <span class="tech-chip tc-base">Faction System</span>
-              <span class="tech-chip tc-base">RTS Camera</span>
-            </div>
-            <a class="btn-project" href="https://rickquintero.itch.io/conquest-of-broken-stars" target="_blank">
-              <span data-i18n="btn.view">View on Itch.io</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <!-- ── Game Jam Projects ── -->
     <div class="category-block">
       <div class="category-header">
@@ -862,9 +865,41 @@
       </div>
       <div class="projects-grid">
 
+        <!-- CHROMORPHIA -->
         <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/OeBerriondo.png" alt="Oe Berriondo" />
+          <div class="project-img-wrap" data-gallery="chromorphia">
+            <img src="Images/Chromorphia_gif.gif" alt="Chromorphia" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.chromorphia.title">CHROMORPHIA</h3>
+            <div class="project-role" data-i18n="game.chromorphia.role">Project Manager · Lead Programmer · Technical Artist</div>
+            <p data-i18n="game.chromorphia.desc">A 2D adventure game with survival elements and environmental storytelling. A newborn chameleon loses his home when his tree is cut down by humans. Inexperienced and just learning to hunt, he must survive in a dangerous forest while searching for a new home. When he tries to hunt a firefly only to find it's toxic, she decides to help him instead. Each night she and other fireflies light the path toward safety. The story is told through the environment, creature behavior, and the glow of the fireflies.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-proc">⬡ Procedural Animations</div>
+              <div class="fh fh-light">☀ Adaptive Lighting</div>
+              <div class="fh fh-cloud">⏱ 1-Month Dev</div>
+            </div>
+            <div class="project-trailer">
+              <div class="trailer-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                Game Trailer
+              </div>
+              <div class="trailer-embed">
+                <iframe src="https://www.youtube.com/embed/-kZSvbxHOrM?start=14" title="Chromorphia Game Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap" data-gallery="oe">
+            <img src="Images/OeBerriondo_gif.gif" alt="Oe Berriondo" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
           </div>
           <div class="project-body">
             <h3 data-i18n="game.oe.title">Oe Berriondo</h3>
@@ -890,8 +925,11 @@
         </div>
 
         <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/FinalCharge.png" alt="Final Charge" />
+          <div class="project-img-wrap" data-gallery="final">
+            <img src="Images/FinalCharge_gif.gif" alt="Final Charge" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
           </div>
           <div class="project-body">
             <h3 data-i18n="game.final.title">Final Charge</h3>
@@ -912,8 +950,11 @@
         </div>
 
         <div class="project-card">
-          <div class="project-img-wrap">
-            <img src="Images/ClickyMouse.png" alt="Clicky Mouse" />
+          <div class="project-img-wrap" data-gallery="clicky">
+            <img src="Images/ClickyMouse_gif.gif" alt="Clicky Mouse" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
           </div>
           <div class="project-body">
             <h3 data-i18n="game.clicky.title">Clicky Mouse</h3>
@@ -927,6 +968,102 @@
               <span class="tech-chip tc-base">40-hour Jam</span>
             </div>
             <a class="btn-project" href="https://lucplash.itch.io/clickymouse" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Personal Projects ── -->
+    <div class="category-block">
+      <div class="category-header">
+        <span class="category-pill personal" data-i18n="games.personal.label">🧪 Personal Projects</span>
+        <p class="category-desc" data-i18n="games.personal.desc">Solo development — mechanics, design, and code all made by me.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-img-wrap" data-gallery="hunger">
+            <img src="Images/HungerOfTheForest_gif.gif" alt="Hunger of the Forest" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.hunger.title">Hunger of the Forest</h3>
+            <div class="project-role" data-i18n="game.hunger.role">Solo Developer</div>
+            <p data-i18n="game.hunger.desc">A top-down survival game where you collect cows by creating wheat paths, gather money, and manage resources — all while surviving increasingly dangerous nights in the forest. Features a dynamic daytime cycle and AI-driven enemies that escalate their aggression after dark.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-light">☀ Dynamic Daytime Lighting</div>
+              <div class="fh fh-shader">✦ Custom Shaders</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-pool">Object Pooling</span>
+              <span class="tech-chip tc-ai">AI Nav Agent</span>
+              <span class="tech-chip tc-base">Scriptable Object Store</span>
+              <span class="tech-chip tc-base">Animation Layers</span>
+              <span class="tech-chip tc-base">Full UI</span>
+              <span class="tech-chip tc-base">Internal Minigame</span>
+            </div>
+            <a class="btn-project" href="https://rickquintero.itch.io/hunger-of-the-forest" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap" data-gallery="crash">
+            <img src="Images/Crash%26MetalLogo.png" alt="Crash &amp; Metal!" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.crash.title">Cash &amp; Metal: Arena</h3>
+            <div class="project-role" data-i18n="game.crash.role">Solo Developer</div>
+            <p data-i18n="game.crash.desc">An arena combat prototype inspired by BattleBots. Control a robot with physics-based custom movement and a heavy shovel weapon. Includes a full power-up system, centralized audio manager, object pooling for performance, and follower AI opponents.</p>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Custom Physics Movement</span>
+              <span class="tech-chip tc-base">Power-Up System</span>
+              <span class="tech-chip tc-pool">Object Pooling</span>
+              <span class="tech-chip tc-base">Centralized Audio Manager</span>
+              <span class="tech-chip tc-ai">Follower AI</span>
+            </div>
+            <a class="btn-project" href="https://rickquintero.itch.io/crash-metal" target="_blank">
+              <span data-i18n="btn.view">View on Itch.io</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-img-wrap" data-gallery="conquest">
+            <img src="Images/ConquestOfBrokenStars.png" alt="Conquest of Broken Stars" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
+            <span class="wip-badge" data-i18n="badge.wip">In Development</span>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.conquest.title">Conquest of Broken Stars</h3>
+            <div class="project-role" data-i18n="game.conquest.role">Solo Developer</div>
+            <p data-i18n="game.conquest.desc">Lead a Type II civilization through mysterious wormholes in this space RTS. Engineered from scratch: a custom PathAI hierarchy (MotherShip → Fighters → CargoUnits), NavMesh-free SpaceSteeringAgents, EntityPoolManager with double-cap spawning, and a full faction system with state-machine game controller.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-ai">⬡ NavMesh-free SpaceSteeringAgent</div>
+              <div class="fh fh-light">☀ Day &amp; Night Control</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-ai">Custom PathAI</span>
+              <span class="tech-chip tc-pool">EntityPoolManager</span>
+              <span class="tech-chip tc-base">GameController FSM</span>
+              <span class="tech-chip tc-base">Faction System</span>
+              <span class="tech-chip tc-base">RTS Camera</span>
+            </div>
+            <a class="btn-project" href="https://rickquintero.itch.io/conquest-of-broken-stars" target="_blank">
               <span data-i18n="btn.view">View on Itch.io</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
@@ -1151,6 +1288,9 @@
       'game.clicky.title':  'Clicky Mouse',
       'game.clicky.role':   'Project Manager · Lead Programmer · Technical Artist',
       'game.clicky.desc':   'Control a small mouse — both the animal and the device — and navigate the environment to reach a special button. Built in just 40 hours by a 4-person team during a game jam, with full character movement, team coordination, and all programming handled solo.',
+      'game.chromorphia.title': 'CHROMORPHIA',
+      'game.chromorphia.role':  'Project Manager · Lead Programmer · Technical Artist',
+      'game.chromorphia.desc':  "A 2D adventure game with survival elements and environmental storytelling. A newborn chameleon loses his home when his tree is cut down by humans. Inexperienced and just learning to hunt, he must survive in a dangerous forest while searching for a new home. When he tries to hunt a firefly only to find it's toxic, she decides to help him instead. Each night she and other fireflies light the path toward safety. The story is told through the environment, creature behavior, and the glow of the fireflies.",
       'btn.view':    'View on Itch.io',
       'badge.wip':   'In Development',
       'about.heading':     'About <span>Me</span>',
@@ -1223,6 +1363,9 @@
       'game.clicky.title':  'Clicky Mouse',
       'game.clicky.role':   'Project Manager · Programador Principal · Artista Técnico',
       'game.clicky.desc':   'Controla un pequeño ratón — tanto el animal como el dispositivo — y navega por el entorno para llegar a un botón especial. Desarrollado en solo 40 horas por un equipo de 4 personas, con movimiento de personaje completo y toda la programación gestionada de forma individual.',
+      'game.chromorphia.title': 'CHROMORPHIA',
+      'game.chromorphia.role':  'Project Manager · Programador Principal · Artista Técnico',
+      'game.chromorphia.desc':  'Un juego de aventura 2D con elementos de supervivencia y narrativa ambiental. Un camaleón recién nacido pierde su hogar cuando el árbol donde vivía es talado por humanos. Inexperto y apenas aprendiendo a cazar, debe sobrevivir en un bosque peligroso mientras busca un nuevo hogar. Al intentar cazar una luciérnaga y descubrir que es tóxica, ella decide ayudarlo. Cada noche, ella y otras luciérnagas iluminan el camino hacia un lugar seguro. La historia se cuenta a través del entorno, el comportamiento de las criaturas y el resplandor de las luciérnagas.',
       'btn.view':    'Ver en Itch.io',
       'badge.wip':   'En Desarrollo',
       'about.heading':     'Sobre <span>Mí</span>',
@@ -1314,6 +1457,57 @@
   window.addEventListener('popstate', e => {
     if (e.state && pages.includes(e.state.page)) navigate(e.state.page);
   });
+
+  /* ── Image Gallery ── */
+  const galleryData = {
+    'hunger':      ['Images/HungerOfTheForest_gif.gif', 'Images/HungerOfTheForest.png'],
+    'crash':       ['Images/Crash%26MetalLogo.png'],
+    'conquest':    ['Images/ConquestOfBrokenStars.png'],
+    'chromorphia': ['Images/Chromorphia_gif.gif', 'Images/Chromorphia_gif_2.gif', 'Images/Chromorphia.png'],
+    'oe':          ['Images/OeBerriondo_gif.gif', 'Images/OeBerriondo.png'],
+    'final':       ['Images/FinalCharge_gif.gif', 'Images/FinalCharge.png'],
+    'clicky':      ['Images/ClickyMouse_gif.gif', 'Images/ClickyMouse.png'],
+  };
+
+  function initGalleries() {
+    document.querySelectorAll('.project-img-wrap[data-gallery]').forEach(wrap => {
+      const id = wrap.getAttribute('data-gallery');
+      const images = galleryData[id];
+      if (!images || images.length === 0) return;
+
+      const img     = wrap.querySelector('img');
+      const prevBtn = wrap.querySelector('.gallery-prev');
+      const nextBtn = wrap.querySelector('.gallery-next');
+      const counter = wrap.querySelector('.gallery-counter');
+      let current = 0;
+
+      if (images.length <= 1) {
+        if (prevBtn) prevBtn.hidden = true;
+        if (nextBtn) nextBtn.hidden = true;
+        if (counter) counter.hidden = true;
+        return;
+      }
+
+      function show(idx) {
+        current = ((idx % images.length) + images.length) % images.length;
+        img.src = images[current];
+        if (counter) counter.textContent = (current + 1) + ' / ' + images.length;
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); show(current - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); show(current + 1); });
+
+      wrap.setAttribute('tabindex', '0');
+      wrap.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); show(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+      });
+
+      show(0);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initGalleries);
 </script>
 
 <!-- ─── PHASER + GAME SCRIPTS ─── -->
