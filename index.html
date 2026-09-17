@@ -364,6 +364,11 @@
       border: 1px solid rgba(62,207,160,0.3);
       color: var(--green);
     }
+    .category-pill.studio {
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: var(--amber);
+    }
 
     .category-desc { font-size: 0.85rem; color: var(--muted); }
 
@@ -857,6 +862,49 @@
 
   <div class="projects-section">
 
+    <!-- ── Rickson Games Studio ── -->
+    <div class="category-block">
+      <div class="category-header">
+        <span class="category-pill studio" data-i18n="games.studio.label">🎮 Rickson Games Studio</span>
+        <p class="category-desc" data-i18n="games.studio.desc">My independent game studio — titles I build and ship end to end, from code and 3D art to store release across web, mobile and PC.</p>
+      </div>
+      <div class="projects-grid">
+
+        <!-- CLOCKHEART MERGE -->
+        <div class="project-card">
+          <div class="project-img-wrap" data-gallery="clockheart">
+            <img src="Images/CLOCKHEART_GIF.gif" alt="Clockheart Merge" />
+            <button class="gallery-btn gallery-prev" aria-label="Previous image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="gallery-btn gallery-next" aria-label="Next image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="gallery-counter"></div>
+            <span class="wip-badge" data-i18n="badge.testing">In Testing</span>
+          </div>
+          <div class="project-body">
+            <h3 data-i18n="game.clockheart.title">Clockheart Merge</h3>
+            <div class="project-role" data-i18n="game.clockheart.role">Solo Developer</div>
+            <p data-i18n="game.clockheart.desc">A merge game built around a special powers system layered on top of the core merge loop. Built entirely solo: merge and grid logic, progression curve and economy balancing, save system, and SDK integration.</p>
+            <div class="feature-highlights">
+              <div class="fh fh-proc">⬡ Special-Powers System</div>
+              <div class="fh fh-light">☀ Economy Balancing</div>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-chip tc-base">Unity</span>
+              <span class="tech-chip tc-base">C#</span>
+              <span class="tech-chip tc-base">Save System</span>
+              <span class="tech-chip tc-base">SDK Integration</span>
+              <span class="tech-chip tc-base">Google Play</span>
+              <span class="tech-chip tc-base">CrazyGames</span>
+            </div>
+            <a class="btn-project" href="https://ricksongames.com" target="_blank">
+              <span data-i18n="btn.studio">Visit Studio</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ── Game Jam Projects ── -->
     <div class="category-block">
       <div class="category-header">
@@ -1150,12 +1198,12 @@
       <!-- Skills -->
       <div class="sidebar-card">
         <h4 data-i18n="about.skills.title">Skills &amp; Tools</h4>
-        <div class="skill-row"><span>Unity Engine</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
-        <div class="skill-row"><span>C# Programming</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
-        <div class="skill-row"><span>Blender</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
-        <div class="skill-row"><span>Gameplay Systems</span><span class="skill-tag tag-advanced" data-i18n="tag.advanced">Advanced</span></div>
-        <div class="skill-row"><span>Game Design</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
-        <div class="skill-row"><span data-i18n="skill.git">Version Control (Git)</span><span class="skill-tag tag-intermediate" data-i18n="tag.intermediate">Intermediate</span></div>
+        <div class="skill-row"><span>Unity Engine</span></div>
+        <div class="skill-row"><span>C# Programming</span></div>
+        <div class="skill-row"><span>Blender</span></div>
+        <div class="skill-row"><span>Gameplay Systems</span></div>
+        <div class="skill-row"><span>Game Design</span></div>
+        <div class="skill-row"><span data-i18n="skill.git">Version Control (Git)</span></div>
       </div>
 
       <!-- Tools -->
@@ -1310,6 +1358,8 @@
       'games.personal.desc':  'Solo development — mechanics, design, and code all made by me.',
       'games.jam.label':      '🤝 Game Jam Projects',
       'games.jam.desc':       'Collaborative games built under pressure — teamwork, communication, and fast delivery.',
+      'games.studio.label':   '🎮 Rickson Games Studio',
+      'games.studio.desc':    'My independent game studio — titles I build and ship end to end, from code and 3D art to store release across web, mobile and PC.',
       'game.hunger.title':  'Hunger of the Forest',
       'game.hunger.role':   'Solo Developer',
       'game.hunger.desc':   'A top-down survival game where you collect cows by creating wheat paths, gather money, and manage resources — all while surviving increasingly dangerous nights in the forest. Features a dynamic daytime cycle and AI-driven enemies that escalate their aggression after dark.',
@@ -1334,8 +1384,13 @@
       'game.rolling.title': 'ROLLING PANDA',
       'game.rolling.role':  'Project Manager · Lead Programmer · Technical Artist',
       'game.rolling.desc':  'Take control of a roly-poly panda on an unstoppable, physics-driven run — roll, bounce, and find the perfect line to see how far you can go before chaos catches up.',
+      'game.clockheart.title': 'Clockheart Merge',
+      'game.clockheart.role':  'Solo Developer',
+      'game.clockheart.desc':  'A merge game built around a special powers system layered on top of the core merge loop. Built entirely solo: merge and grid logic, progression curve and economy balancing, save system, and SDK integration.',
       'btn.view':    'View on Itch.io',
+      'btn.studio':  'Visit Studio',
       'badge.wip':   'In Development',
+      'badge.testing': 'In Testing',
       'about.heading':     'About <span>Me</span>',
       'about.p1': 'I am a <strong>Unity Developer</strong> specializing in <strong>C# gameplay programming</strong>. My focus is on building interactive experiences that feel engaging and responsive — from core mechanics and player systems to complete gameplay loops.',
       'about.p2': 'I have experience developing complete game systems, including player controllers, resource management, AI behaviors, and UI integration. I enjoy the process of turning ideas into playable experiences and solving the technical challenges that come with game development.',
@@ -1343,8 +1398,6 @@
       'about.p4': 'I am passionate about interactive media and always looking to improve my craft, whether through learning new tools, optimizing existing systems, or exploring fresh ideas in game design.',
       'about.skills.title': 'Skills &amp; Tools',
       'about.tools.title':  'What I Work With',
-      'tag.advanced':     'Advanced',
-      'tag.intermediate': 'Intermediate',
       'skill.git':        'Version Control (Git)',
       'contact.heading':         'Get in <span>Touch</span>',
       'contact.subtitle':        'Interested in working together or have a question? Feel free to reach out.',
@@ -1388,6 +1441,8 @@
       'games.personal.desc':  'Desarrollo en solitario — mecánicas, diseño y código hecho por mí.',
       'games.jam.label':      '🤝 Proyectos de Game Jam',
       'games.jam.desc':       'Juegos colaborativos construidos bajo presión — trabajo en equipo, comunicación y entrega rápida.',
+      'games.studio.label':   '🎮 Rickson Games Studio',
+      'games.studio.desc':    'Mi estudio de videojuegos independiente — títulos que desarrollo y publico de principio a fin, desde el código y el arte 3D hasta el lanzamiento en tiendas para web, móvil y PC.',
       'game.hunger.title':  'Hunger of the Forest',
       'game.hunger.role':   'Desarrollador Independiente',
       'game.hunger.desc':   'Un juego de supervivencia top-down donde recolectas vacas creando caminos de trigo, acumulas dinero y gestionas recursos — mientras sobrevives las peligrosas noches del bosque. Incluye un ciclo día/noche dinámico y enemigos con IA que intensifican su agresividad al anochecer.',
@@ -1412,8 +1467,13 @@
       'game.rolling.title': 'ROLLING PANDA',
       'game.rolling.role':  'Project Manager · Programador Principal · Artista Técnico',
       'game.rolling.desc':  'Toma el control de un panda rodante en una carrera imparable impulsada por la física — rueda, rebota y encuentra la línea perfecta para ver hasta dónde puedes llegar antes de que el caos te alcance.',
+      'game.clockheart.title': 'Clockheart Merge',
+      'game.clockheart.role':  'Desarrollador Solo',
+      'game.clockheart.desc':  'Un juego de merge construido alrededor de un sistema de poderes especiales sobre el loop principal de merge. Desarrollado completamente en solitario: lógica de merge y grid, curva de progresión y balance de economía, sistema de guardado e integración de SDK.',
       'btn.view':    'Ver en Itch.io',
+      'btn.studio':  'Visitar Estudio',
       'badge.wip':   'En Desarrollo',
+      'badge.testing': 'En Pruebas',
       'about.heading':     'Sobre <span>Mí</span>',
       'about.p1': 'Soy <strong>Desarrollador Unity</strong> especializado en <strong>programación de gameplay en C#</strong>. Me enfoco en crear experiencias interactivas que se sientan dinámicas y responsivas — desde mecánicas base y sistemas de jugador hasta loops de gameplay completos.',
       'about.p2': 'Tengo experiencia desarrollando sistemas de juego completos, incluyendo controladores de jugador, gestión de recursos, comportamientos de IA e integración de UI. Disfruto convertir ideas en experiencias jugables y resolver los desafíos técnicos que trae el desarrollo de videojuegos.',
@@ -1421,8 +1481,6 @@
       'about.p4': 'Soy apasionado por los medios interactivos y siempre busco mejorar mi oficio, ya sea aprendiendo nuevas herramientas, optimizando sistemas existentes o explorando ideas frescas en diseño de juegos.',
       'about.skills.title': 'Habilidades y Herramientas',
       'about.tools.title':  'Con Qué Trabajo',
-      'tag.advanced':     'Avanzado',
-      'tag.intermediate': 'Intermedio',
       'skill.git':        'Control de Versiones (Git)',
       'contact.heading':         '<span>Contáctame</span>',
       'contact.subtitle':        '¿Interesado en colaborar o tienes alguna pregunta? No dudes en contactarme.',
@@ -1508,6 +1566,7 @@
   const galleryData = {
     'hunger':      ['Images/HungerOfTheForest_gif.gif', 'Images/HungerOfTheForest.png'],
     'crash':       ['Images/Crash%26MetalLogo.png'],
+    'clockheart':  ['Images/CLOCKHEART_GIF.gif', 'Images/CLOCKHEART.png', 'Images/CLOCKHEART_2.png'],
     'awaike':      ['Images/AWAIKE_gif.gif', 'Images/AWAIKE.png'],
     'chromorphia': ['Images/Chromorphia_gif.gif', 'Images/Chromorphia_gif_2.gif', 'Images/Chromorphia.png'],
     'oe':          ['Images/OeBerriondo_gif.gif', 'Images/OeBerriondo.png'],
